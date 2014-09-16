@@ -8,6 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -26,7 +28,8 @@
         <activity android:name="com.example.init.StartActivity" />
         <activity android:name="com.example.init.LoginActivity" />
         <activity android:name="com.example.init.RegisterActivity" />
-        <activity android:name="com.example.init.RegisterFail" />
+        <activity android:name="com.example.init.RegisterSucceed" />
+        <activity android:name="com.example.init.FailHint" />
         <activity android:name="com.example.init.HomeActivity" />
         
         <activity android:name="com.example.TabHost.MessageActivity" />

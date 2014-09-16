@@ -9,7 +9,7 @@
     tools:context="com.example.init.MainActivity$PlaceholderFragment" >
     
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/email"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/password"
         android:layout_marginLeft="26dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/hint"
         android:ems="10"
         android:inputType="textEmailAddress" >
         

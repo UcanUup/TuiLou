@@ -9,7 +9,7 @@
     tools:context="com.example.init.MainActivity$PlaceholderFragment" >
     
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
         android:id="@+id/createButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/hint"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:text="@string/back" />

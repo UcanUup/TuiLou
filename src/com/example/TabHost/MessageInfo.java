@@ -28,7 +28,7 @@ public class MessageInfo extends Activity {
 		String groupInfo = intent.getStringExtra("groupInfo");
 		
 		backButton = (Button)findViewById(R.id.backButton);
-		Title = (TextView)findViewById(R.id.textView1);
+		Title = (TextView)findViewById(R.id.hint);
 		Info = (TextView)findViewById(R.id.textView2);
 		
 		Title.setText(groupName);

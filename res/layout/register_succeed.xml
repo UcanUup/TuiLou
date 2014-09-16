@@ -14,17 +14,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
-        android:text="@string/invite_succeed"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginTop="123dp"
+        android:text="@string/register_succeed_message"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/createButton"
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hint"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/back" />
+        android:layout_centerVertical="true"
+        android:text="@string/login" />
     
 </RelativeLayout>

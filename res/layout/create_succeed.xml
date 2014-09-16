@@ -9,7 +9,7 @@
     tools:context="com.example.init.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView2"
@@ -26,15 +26,15 @@
         android:layout_above="@+id/button2"
         android:layout_marginBottom="46dp"
         android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_toRightOf="@+id/backButton1"
         android:text="ATy234C7"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/backButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/hint"
         android:layout_centerVertical="true"
         android:text="@string/share" />
 

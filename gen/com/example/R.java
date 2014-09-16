@@ -1098,15 +1098,14 @@ containing a value of this type.
         public static final int action_settings=0x7f050054;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
-        public static final int back=0x7f050052;
         public static final int backButton=0x7f05004c;
+        public static final int backButton1=0x7f050045;
         public static final int beginning=0x7f050011;
-        public static final int button1=0x7f050045;
         public static final int button2=0x7f050044;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
         public static final int confirmButton=0x7f05003f;
-        public static final int confirmPassword=0x7f05004e;
+        public static final int confirmPassword=0x7f05004d;
         public static final int container=0x7f05003c;
         public static final int createButton=0x7f050043;
         public static final int default_activity_button=0x7f050028;
@@ -1122,6 +1121,7 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
         public static final int groupListView=0x7f050047;
+        public static final int hint=0x7f05003d;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
@@ -1130,11 +1130,12 @@ containing a value of this type.
         public static final int isExpand=0x7f050046;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
+        public static final int login=0x7f050052;
         public static final int loginButton=0x7f05004a;
         public static final int messageListView=0x7f05004b;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
-        public static final int nickname=0x7f05004f;
+        public static final int nickname=0x7f05004e;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int password=0x7f050049;
@@ -1159,9 +1160,8 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
-        public static final int textView1=0x7f05003d;
         public static final int textView2=0x7f050041;
-        public static final int textView3=0x7f05004d;
+        public static final int textView3=0x7f05004f;
         public static final int textView4=0x7f050050;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
@@ -1236,9 +1236,10 @@ containing a value of this type.
         public static final int message_item=0x7f030026;
         public static final int register=0x7f030027;
         public static final int register_fail=0x7f030028;
-        public static final int setting=0x7f030029;
-        public static final int start=0x7f03002a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002b;
+        public static final int register_succeed=0x7f030029;
+        public static final int setting=0x7f03002a;
+        public static final int start=0x7f03002b;
+        public static final int support_simple_spinner_dropdown_item=0x7f03002c;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1285,32 +1286,38 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
         public static final int action_settings=0x7f0a000e;
-        public static final int add_group=0x7f0a001a;
+        public static final int add_group=0x7f0a0020;
         public static final int app_name=0x7f0a000d;
-        public static final int back=0x7f0a0017;
-        public static final int confirm=0x7f0a001c;
+        public static final int back=0x7f0a001d;
+        public static final int confirm=0x7f0a0022;
         public static final int confirm_password=0x7f0a0014;
-        public static final int create=0x7f0a0022;
-        public static final int create_group=0x7f0a001f;
+        public static final int create=0x7f0a0028;
+        public static final int create_group=0x7f0a0025;
         public static final int email=0x7f0a0011;
-        public static final int exit=0x7f0a0027;
-        public static final int exit_application=0x7f0a0018;
+        public static final int exit=0x7f0a002d;
+        public static final int exit_application=0x7f0a001e;
         public static final int forget_password=0x7f0a0013;
-        public static final int group_name=0x7f0a0020;
-        public static final int invitation_code=0x7f0a001b;
-        public static final int invite_fail=0x7f0a001e;
-        public static final int invite_succeed=0x7f0a001d;
+        public static final int group_name=0x7f0a0026;
+        public static final int invitation_code=0x7f0a0021;
+        public static final int invite_fail=0x7f0a0024;
+        public static final int invite_succeed=0x7f0a0023;
         public static final int login=0x7f0a000f;
-        public static final int message=0x7f0a0019;
-        public static final int my_group=0x7f0a0025;
-        public static final int my_invitation_code=0x7f0a0023;
+        public static final int message=0x7f0a001f;
+        public static final int my_group=0x7f0a002b;
+        public static final int my_invitation_code=0x7f0a0029;
         public static final int nickname=0x7f0a0015;
+        public static final int null_value=0x7f0a0018;
         public static final int password=0x7f0a0012;
+        public static final int password_differ=0x7f0a0019;
+        public static final int password_error=0x7f0a001c;
         public static final int register=0x7f0a0010;
         public static final int register_fail_message=0x7f0a0016;
-        public static final int remark=0x7f0a0021;
-        public static final int setting=0x7f0a0026;
-        public static final int share=0x7f0a0024;
+        public static final int register_succeed_message=0x7f0a0017;
+        public static final int remark=0x7f0a0027;
+        public static final int setting=0x7f0a002c;
+        public static final int share=0x7f0a002a;
+        public static final int user_already_exist=0x7f0a001a;
+        public static final int user_no_exist=0x7f0a001b;
     }
     public static final class style {
         /** 
