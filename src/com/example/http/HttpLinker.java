@@ -16,12 +16,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+
 public class HttpLinker {
 	public String link(HashMap<String, String> params, String page) {
 		String url = HttpUrl.baseUrl + page;
 		String httpUrl = url;
 		String result = "";
-	
+
 		// 用网址url生成HttpPost连接对象
 		HttpPost httpRequest = new HttpPost(httpUrl);
 	
@@ -32,8 +37,8 @@ public class HttpLinker {
 		for (Map.Entry<String, String> entry : params.entrySet()) {
 			pa.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
-		 
-		try {
+    	
+    	try {
 			//设置参数集
 			HttpEntity httpEntity = new UrlEncodedFormEntity(pa, "utf-8");
 			// httpRequest设置链接后面的参数
@@ -48,10 +53,11 @@ public class HttpLinker {
 			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				// 取得返回的字符串;
 				result = EntityUtils.toString(httpResponse.getEntity());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			} 
+    	} 
+    	catch (Exception e) {
+    		e.printStackTrace();
+    	}
 		
 		return result;
 	}

@@ -29,7 +29,7 @@ public class MessageInfo extends Activity {
 		
 		backButton = (Button)findViewById(R.id.backButton);
 		Title = (TextView)findViewById(R.id.hint);
-		Info = (TextView)findViewById(R.id.textView2);
+		Info = (TextView)findViewById(R.id.inviteCode);
 		
 		Title.setText(groupName);
 		Info.setText(groupInfo);

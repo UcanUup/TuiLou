@@ -12,11 +12,11 @@
     <string name="nickname">昵称</string>
     <string name="register_fail_message">注册失败！</string>
     <string name="register_succeed_message">注册成功，欢迎使用。</string>
-    <string name="null_value">请不要输入空值。</string>
-    <string name="password_differ">两次输入的密码不一致。</string>
-    <string name="user_already_exist">用户名已存在。</string>
-    <string name="user_no_exist">用户名不存在。</string>
-    <string name="password_error">密码错误。</string>
+    <string name="null_value">请不要输入空值</string>
+    <string name="password_differ">两次输入的密码不一致</string>
+    <string name="user_already_exist">邮箱已注册</string>
+    <string name="user_no_exist">用户名不存在</string>
+    <string name="password_error">密码错误</string>
     <string name="back">返回</string>
     
     <string name="exit_application">再按一次退出程序</string>
@@ -26,8 +26,10 @@
     <string name="add_group">加入小组</string>
     <string name="invitation_code">请输入邀请码</string>
     <string name="confirm">确认</string>
-    <string name="invite_succeed">已成功加入该小组</string>
-    <string name="invite_fail">请输入正确的邀请码</string>
+    <string name="group_exist">小组名已存在</string>
+    <string name="invite_succeed">已成功加入小组</string>
+    <string name="code_no_exist">邀请码不存在</string>
+    <string name="your_group">这是自己创建的小组的邀请码</string>
     
     <string name="create_group">创建小组</string>
     <string name="group_name">组名</string>

@@ -12,22 +12,21 @@
         android:id="@+id/hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/inviteCode"
+        android:layout_alignBottom="@+id/inviteCode"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="22dp"
         android:text="@string/my_invitation_code"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/inviteCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"
         android:layout_marginBottom="46dp"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@+id/backButton1"
-        android:text="ATy234C7"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
@@ -42,7 +41,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignLeft="@+id/inviteCode"
         android:layout_centerVertical="true"
         android:text="@string/back" />
  

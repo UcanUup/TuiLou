@@ -46,7 +46,7 @@ public class MessageAdapter extends BaseAdapter {
 		TextView tv1 = (TextView)layout.findViewById(R.id.hint);		
 		tv1.setText(item1[position]);
 		
-		TextView tv2 = (TextView)layout.findViewById(R.id.textView2);		
+		TextView tv2 = (TextView)layout.findViewById(R.id.inviteCode);		
 		tv2.setText(item2[position]);
 
 		return layout;

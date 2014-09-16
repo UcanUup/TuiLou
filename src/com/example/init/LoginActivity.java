@@ -5,20 +5,63 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
+import com.example.utils.CustomProgressDialog;
 
 public class LoginActivity extends Activity {
 	private EditText emailText;
 	private EditText pwdText;
 	
 	private Button loginButton;
+
+	private HashMap<String, String> params;
+	
+	private CustomProgressDialog customProgressDialog;
+	
+	private String email;
+	
+	//使用Handler来等待子线程完成操作
+	private Handler handler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			
+			Bundle bundle = msg.getData();
+			String result = bundle.getString("result");
+			
+			//关闭圆形进度条
+			customProgressDialog.dismiss();
+			
+			//用户名已经存在
+			if (result.equals("%nothing%")) {
+				Toast.makeText(getApplicationContext(), getString(R.string.user_no_exist),
+					     Toast.LENGTH_SHORT).show();
+			}
+			else if (result.equals("%error%")) {
+				Toast.makeText(getApplicationContext(), getString(R.string.password_error),
+					     Toast.LENGTH_SHORT).show();
+			}
+			else {
+				UserInfo.email = email;
+				
+				Intent intent = new Intent();
+				intent.putExtra("userName", result);
+				intent.setClass(LoginActivity.this, HomeActivity.class);
+				startActivity(intent);
+			}
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,48 +81,44 @@ public class LoginActivity extends Activity {
 		loginButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				boolean isSucceed = false;
-				
+			public void onClick(View v) {				
 				// 点击登陆按钮后,将用户的输入转为字符串
-				String email = emailText.getText().toString();
+				email = emailText.getText().toString();
 				String pwd = pwdText.getText().toString();
-				
-				Intent intent = new Intent();
 				
 				// 输入空值
 				if (email.equals("") || pwd.equals("")) {
-					intent.putExtra("error", getString(R.string.null_value));
+					Toast.makeText(getApplicationContext(), getString(R.string.null_value),
+						     Toast.LENGTH_SHORT).show();
 				}
 				else {
+					//显示圆形进度条
+					customProgressDialog = new CustomProgressDialog(LoginActivity.this);
+					customProgressDialog.show();
+					
 					// 设置请求链接的参数
-					HashMap<String, String> params = new HashMap<String, String>();
+					params = new HashMap<String, String>();
 					params.put("em", email);
 					params.put("pw", pwd);
 					
-					//连接服务器
-					HttpLinker httpLinker = new HttpLinker();
-					String result = httpLinker.link(params, HttpUrl.user_login);
-					
-					//用户名已经存在
-					if (result.equals("nothing"))
-						intent.putExtra("error", getString(R.string.user_no_exist));
-					else if (result.equals("error"))
-						intent.putExtra("error", getString(R.string.password_error));
-					else 
-						isSucceed = true;
+					//android 3.0以后规定要在新的线程执行网络访问等操作
+					Thread thread = new Thread(new Runnable() {
+						//连接服务器
+						@Override
+						public void run() {
+							HttpLinker httpLinker = new HttpLinker();
+							String result = httpLinker.link(params, HttpUrl.user_login);
+							
+							Message msg = new Message();
+							Bundle bundle = new Bundle();
+							bundle.putString("result", result);
+							msg.setData(bundle);
+							handler.sendMessage(msg);
+						}
+					});
+					//启动线程
+					thread.start();
 				}
-				
-				//登陆失败时
-				if (!isSucceed) {
-					intent.setClass(LoginActivity.this, FailHint.class);
-				}
-				//登陆成功时
-				else {
-					intent.setClass(LoginActivity.this, HomeActivity.class);
-				}
-    			startActivity(intent);
 			}
 		});
 	}

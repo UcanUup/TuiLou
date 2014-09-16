@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.R;
+import com.example.init.UserInfo;
 
 public class SettingActivity extends Fragment {
+	private TextView userName;
+	
 	private Button exitButton;
 	
 	@Override
@@ -18,6 +22,10 @@ public class SettingActivity extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.setting, container,
 				false);
+		
+		//设置用户名
+		userName = (TextView)rootView.findViewById(R.id.userName);
+		userName.setText(UserInfo.userName);
 		
 		exitButton= (Button)rootView.findViewById(R.id.exitButton);
 		exitButton.setOnClickListener(new OnClickListener() {
