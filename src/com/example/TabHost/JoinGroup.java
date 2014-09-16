@@ -44,6 +44,17 @@ public class JoinGroup extends Fragment {
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
 			
+			// 用户快速的关掉网络并点击按钮时，网络状态在一瞬间仍是可用
+			if (result.equals("")) {
+				// 关闭圆形进度条
+				customProgressDialog.dismiss();
+				
+				// 网络连接不可用
+				Toast.makeText(getActivity(), getString(R.string.network_error),
+						Toast.LENGTH_SHORT).show();
+				return ;
+			}
+			
 			code.setText("");
 			
 			// 关闭圆形进度条
