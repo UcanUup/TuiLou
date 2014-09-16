@@ -3,6 +3,7 @@ package com.example.utils;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import com.example.lib.MyMessage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

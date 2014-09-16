@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.R;
-import com.example.utils.MyMessage;
-import com.example.utils.UserInfo;
+import com.example.lib.MyMessage;
+import com.example.lib.UserInfo;
 
 public class MessageAdapter extends BaseAdapter {
 	

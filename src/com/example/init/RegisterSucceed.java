@@ -1,6 +1,7 @@
 package com.example.init;
 
 import com.example.R;
+import com.example.lib.ExitApplication;
 
 import android.app.Activity;
 import android.content.Intent;

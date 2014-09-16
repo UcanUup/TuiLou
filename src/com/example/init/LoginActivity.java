@@ -14,11 +14,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.R;
-import com.example.http.HttpLinker;
-import com.example.http.HttpUrl;
+import com.example.lib.ExitApplication;
+import com.example.lib.HttpUrl;
+import com.example.lib.UserInfo;
 import com.example.sqlite.UserDatabase;
 import com.example.utils.CustomProgressDialog;
-import com.example.utils.UserInfo;
+import com.example.utils.HttpLinker;
 import com.example.utils.Validation;
 
 public class LoginActivity extends Activity {

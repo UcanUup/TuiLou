@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.init.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,26 +27,41 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="com.example.init.StartActivity" />
-        <activity android:name="com.example.init.LoginActivity" />
-        <activity android:name="com.example.init.RegisterActivity" />
-        <activity android:name="com.example.init.RegisterSucceed" />
-        <activity android:name="com.example.init.FailHint" />
-        <activity android:name="com.example.init.HomeActivity" />
+        <activity android:name="com.example.init.StartActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.init.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.init.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.init.RegisterSucceed"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.init.FailHint"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.init.HomeActivity"
+            android:screenOrientation="portrait" />
         
-        <activity android:name="com.example.TabHost.MessageActivity" />
-        <activity android:name="com.example.TabHost.MessageInfo" />
+        <activity android:name="com.example.tab.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.tab.MessageInfo"
+            android:screenOrientation="portrait" />
         
-        <activity android:name="com.example.TabHost.JoinGroup" />
-        <activity android:name="com.example.TabHost.InviteSucceed" />
+        <activity android:name="com.example.tab.JoinGroup"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.tab.InviteSucceed"
+            android:screenOrientation="portrait" />
         
-        <activity android:name="com.example.TabHost.CreateGroup" />
-        <activity android:name="com.example.TabHost.CreateSucceed" />
+        <activity android:name="com.example.tab.CreateGroup"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.tab.CreateSucceed"
+            android:screenOrientation="portrait" />
         
-        <activity android:name="com.example.TabHost.MyGroup" />
-        <activity android:name="com.example.TabHost.SendMessage" />
+        <activity android:name="com.example.tab.MyGroup"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.tab.SendMessage"
+            android:screenOrientation="portrait" />
         
-        <activity android:name="com.example.TabHost.SettingActivity" />
+        <activity android:name="com.example.tab.SettingActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

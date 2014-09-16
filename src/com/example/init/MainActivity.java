@@ -1,8 +1,8 @@
 package com.example.init;
 
 import com.example.R;
+import com.example.lib.UserInfo;
 import com.example.sqlite.UserDatabase;
-import com.example.utils.UserInfo;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.R;
-import com.example.utils.Group;
+import com.example.lib.Group;
 
 public class GroupAdapter extends BaseExpandableListAdapter {
 	
@@ -66,6 +66,7 @@ public class GroupAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
+		// 设置group内容的回调函数
 		RelativeLayout layout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.group, null);
 		ImageView ie = (ImageView)layout.findViewById(R.id.isExpand);
 		TextView tv = (TextView)layout.findViewById(R.id.TextView1);
@@ -86,6 +87,7 @@ public class GroupAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
+		// 设置child内容的回调函数
 		RelativeLayout layout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.child, null);
 		TextView tv = (TextView)layout.findViewById(R.id.TextView1);
 		TextView tv2 = (TextView)layout.findViewById(R.id.TextView2);

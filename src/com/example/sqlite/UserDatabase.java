@@ -3,7 +3,8 @@ package com.example.sqlite;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.utils.UserInfo;
+import com.example.lib.DatabaseInfo;
+import com.example.lib.UserInfo;
 
 public class UserDatabase {
 	
