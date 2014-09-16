@@ -1,13 +1,13 @@
 package com.example.init;
 
-import com.example.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.example.R;
 
 public class StartActivity extends Activity {
 	private Button loginButton;
@@ -49,5 +49,4 @@ public class StartActivity extends Activity {
 			}
 		});
 	}
-	
 }

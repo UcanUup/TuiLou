@@ -32,7 +32,11 @@ public class SettingActivity extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				//清空用户信息
+				UserInfo.myMessage = null;
+				UserInfo.myCreate = null;
+				UserInfo.myJoin = null;
+				
 				getActivity().finish();
 			}
 		});

@@ -18,6 +18,8 @@ import com.example.R;
 import com.example.adapter.MessageAdapter;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
+import com.example.sqlite.MessageDatabase;
+import com.example.utils.CustomProgressDialog;
 import com.example.utils.MyMessage;
 import com.example.utils.ParseMyMessage;
 import com.example.utils.UserInfo;
@@ -25,7 +27,11 @@ import com.example.utils.UserInfo;
 public class MessageActivity extends Fragment {
 	private ListView messageListView;
 	
+	private int times = 1;
+	
 	private HashMap<String, String> params;
+	
+	private CustomProgressDialog customProgressDialog;
 	
 	//使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
@@ -39,20 +45,26 @@ public class MessageActivity extends Fragment {
 			
 			UserInfo.myMessage = ParseMyMessage.parse(result);
 			
-			//设置设配器
+			//关闭圆形进度条
+			customProgressDialog.dismiss();
+			
+			//设置适配器
 			MessageAdapter messageAdapter = new MessageAdapter(getActivity());
 			messageListView.setAdapter(messageAdapter);
+			
+			times++;
 		}
 	};
 	
+	//第一次创建时
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.message, container,
-				false);
+		super.onCreate(savedInstanceState);
 		
-		messageListView = (ListView)rootView.findViewById(R.id.messageListView);
+		//显示圆形进度条
+		customProgressDialog = new CustomProgressDialog(getActivity());
+		customProgressDialog.show();
 		
 		// 设置请求链接的参数
 		params = new HashMap<String, String>();
@@ -75,6 +87,22 @@ public class MessageActivity extends Fragment {
 		});
 		//启动线程
 		thread.start();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.message, container,
+				false);
+		
+		messageListView = (ListView)rootView.findViewById(R.id.messageListView);
+		
+		//不是第一次进入时
+		if (times > 1) {
+			//设置适配器
+			MessageAdapter messageAdapter = new MessageAdapter(getActivity());
+			messageListView.setAdapter(messageAdapter);
+		}
 		
 		//点击每一项时的触发事件
 		messageListView.setOnItemClickListener(new OnItemClickListener() {
