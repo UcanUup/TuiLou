@@ -43,6 +43,9 @@ public class SendMessage extends Activity {
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
 			
+			titleText.setText("");
+			contentText.setText("");
+			
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
 			
@@ -62,10 +65,10 @@ public class SendMessage extends Activity {
 		setContentView(R.layout.send_message);
 		
 		gname = (TextView)findViewById(R.id.myGroup);
-		titleText = (EditText)findViewById(R.id.editText1);
-		contentText = (EditText)findViewById(R.id.editText2);
-		back = (Button)findViewById(R.id.button1);
-		send = (Button)findViewById(R.id.button2);
+		titleText = (EditText)findViewById(R.id.title);
+		contentText = (EditText)findViewById(R.id.content);
+		back = (Button)findViewById(R.id.back);
+		send = (Button)findViewById(R.id.send);
 		
 		//设置组名
 		Intent intent = getIntent();

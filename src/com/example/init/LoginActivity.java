@@ -18,12 +18,14 @@ import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
 import com.example.utils.CustomProgressDialog;
 import com.example.utils.UserInfo;
+import com.example.utils.Validation;
 
 public class LoginActivity extends Activity {
 	private EditText emailText;
 	private EditText pwdText;
 	
 	private Button loginButton;
+	private Button registerButton;
 
 	private HashMap<String, String> params;
 	
@@ -40,6 +42,9 @@ public class LoginActivity extends Activity {
 			
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
+			
+			emailText.setText("");
+			pwdText.setText("");
 			
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
@@ -92,6 +97,11 @@ public class LoginActivity extends Activity {
 					Toast.makeText(getApplicationContext(), getString(R.string.null_value),
 						     Toast.LENGTH_SHORT).show();
 				}
+				//邮箱格式不正确
+				else if (!Validation.isEmailValid(email)) {
+					Toast.makeText(getApplicationContext(), getString(R.string.email_format),
+						     Toast.LENGTH_SHORT).show();
+				}
 				else {
 					//显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(LoginActivity.this);
@@ -120,6 +130,18 @@ public class LoginActivity extends Activity {
 					//启动线程
 					thread.start();
 				}
+			}
+		});
+		
+		//点击注册按钮
+		registerButton = (Button)findViewById(R.id.registerButton);
+		registerButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setClass(LoginActivity.this, RegisterActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

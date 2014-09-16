@@ -1,5 +1,6 @@
 package com.example.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
@@ -8,8 +9,13 @@ public class Group {
 	private String remark;
 	private String code;
 	
-	public static List<String> groups;
-	public static List<List<Group>> childs;
+	public static boolean isUpdate = false;
+	
+	public static List<String> groups = new ArrayList<String>();
+	
+	public static List<List<Group>> childs = new ArrayList<List<Group>>();
+	public static List<Group> child1 = new ArrayList<Group>();
+	public static List<Group> child2 = new ArrayList<Group>();
 	
 	public String getGname() {
 		return gname;

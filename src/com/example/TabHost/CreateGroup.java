@@ -45,6 +45,10 @@ public class CreateGroup extends Fragment {
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
 			
+			//清空
+			groupText.setText("");
+			remarkText.setText("");
+			
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
 			
@@ -55,12 +59,15 @@ public class CreateGroup extends Fragment {
 			}
 			else {
 				//成功后加入组到childs用于切换选项卡时快速加载
-				Group g = new Group();
-				g.setGname(group);
-				g.setEmail(UserInfo.email);
-				g.setRemark(remark);
-				g.setCode(result);
-				Group.childs.get(0).add(g);
+				if (Group.isUpdate) {
+					Group g = new Group();
+					g.setGname(group);
+					g.setEmail(UserInfo.email);
+					g.setRemark(remark);
+					g.setCode(result);
+					
+					Group.child1.add(g);
+				}
 				
 				//页面跳转
 				Intent intent = new Intent();
@@ -86,7 +93,7 @@ public class CreateGroup extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				// 点击登陆按钮后,将用户的输入转为字符串
+				// 点击按钮后,将用户的输入转为字符串
 				group = groupText.getText().toString();
 				remark = remarkText.getText().toString();
 				

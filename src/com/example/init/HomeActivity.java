@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.utils.Group;
 import com.example.utils.UserInfo;
 
 public class HomeActivity extends FragmentActivity {

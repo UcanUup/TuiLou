@@ -37,7 +37,6 @@
         
         <activity android:name="com.example.TabHost.JoinGroup" />
         <activity android:name="com.example.TabHost.InviteSucceed" />
-        <activity android:name="com.example.TabHost.InviteFail" />
         
         <activity android:name="com.example.TabHost.CreateGroup" />
         <activity android:name="com.example.TabHost.CreateSucceed" />

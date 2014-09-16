@@ -9,40 +9,33 @@
     tools:context="com.example.init.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/hint"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/inviteCode"
-        android:layout_alignBottom="@+id/inviteCode"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
         android:text="@string/my_invitation_code"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/inviteCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_marginBottom="46dp"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/backButton1"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/backButton1"
+        android:id="@+id/back"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hint"
-        android:layout_centerVertical="true"
-        android:text="@string/share" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/inviteCode"
-        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/inviteCode"
+        android:layout_marginTop="36dp"
         android:text="@string/back" />
  
 </RelativeLayout>

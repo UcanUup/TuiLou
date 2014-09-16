@@ -42,6 +42,8 @@ public class JoinGroup extends Fragment {
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
 			
+			code.setText("");
+			
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
 			
@@ -59,14 +61,18 @@ public class JoinGroup extends Fragment {
 						Toast.LENGTH_SHORT).show();
 			}
 			else {
-				//成功后加入组到childs用于切换选项卡时快速加载
 				String[] myGroup = result.split("\\^");
-				Group g = new Group();
-				g.setGname(myGroup[0]);
-				g.setEmail(myGroup[1]);
-				g.setRemark(myGroup[2]);
-				g.setCode(groupCode);
-				Group.childs.get(1).add(g);
+				
+				//成功后加入组到childs用于切换选项卡时快速加载
+				if (Group.isUpdate) {
+					Group g = new Group();
+					g.setGname(myGroup[0]);
+					g.setEmail(myGroup[1]);
+					g.setRemark(myGroup[2]);
+					g.setCode(groupCode);
+					
+				    Group.child2.add(g);
+				}
 				
 				Intent intent = new Intent();
 				intent.putExtra("groupName", myGroup[0]);

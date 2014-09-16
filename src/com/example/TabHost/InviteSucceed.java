@@ -27,7 +27,7 @@ public class InviteSucceed extends Activity {
 		Intent intent = getIntent();
 		group.setText(intent.getStringExtra("groupName"));
 		
-		backButton = (Button)findViewById(R.id.createButton);
+		backButton = (Button)findViewById(R.id.back);
 		backButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

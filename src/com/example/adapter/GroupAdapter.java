@@ -3,7 +3,6 @@ package com.example.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.R;
-import com.example.TabHost.SendMessage;
-import com.example.init.StartActivity;
 import com.example.utils.Group;
 
 public class GroupAdapter extends BaseExpandableListAdapter {

@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 			new Handler().postDelayed(new Runnable() {  
 	            public void run() {  
 	                Intent intent = new Intent();
-	    			intent.setClass(getActivity(), StartActivity.class);
+	    			intent.setClass(getActivity(), LoginActivity.class);
 	    			startActivity(intent);
 	                getActivity().finish();  
 	            }  

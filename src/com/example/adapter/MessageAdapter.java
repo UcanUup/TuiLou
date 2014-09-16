@@ -56,10 +56,10 @@ public class MessageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// 设置每一个项显示的内容
 		RelativeLayout layout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.message_item, null);
-		TextView tv1 = (TextView)layout.findViewById(R.id.hint);		
+		TextView tv1 = (TextView)layout.findViewById(R.id.group);		
 		tv1.setText(item1.get(position));
 		
-		TextView tv2 = (TextView)layout.findViewById(R.id.inviteCode);		
+		TextView tv2 = (TextView)layout.findViewById(R.id.title);		
 		tv2.setText(item2.get(position));
 
 		return layout;

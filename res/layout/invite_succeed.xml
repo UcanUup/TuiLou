@@ -24,15 +24,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/hint"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginTop="26dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/createButton"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/group"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="21dp"
         android:text="@string/back" />
     
 </RelativeLayout>

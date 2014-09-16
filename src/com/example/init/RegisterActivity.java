@@ -17,6 +17,7 @@ import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
 import com.example.utils.CustomProgressDialog;
+import com.example.utils.Validation;
 
 public class RegisterActivity extends Activity {
 	private EditText emailText;
@@ -40,6 +41,11 @@ public class RegisterActivity extends Activity {
 			
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
+			
+			emailText.setText("");
+			pwdText.setText("");
+			cpwdText.setText("");
+			nameText.setText("");
 			
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
@@ -69,7 +75,7 @@ public class RegisterActivity extends Activity {
 		cpwdText = (EditText)findViewById(R.id.confirmPassword);
 		nameText = (EditText)findViewById(R.id.nickname);
 		
-		backButton = (Button)findViewById(R.id.backButton1);
+		backButton = (Button)findViewById(R.id.backButton);
 		//点击返回按钮
 		backButton.setOnClickListener(new OnClickListener() {
 			
@@ -95,6 +101,11 @@ public class RegisterActivity extends Activity {
 				// 输入空值
 				if (email.equals("") || pwd.equals("") || cpwd.equals("") || name.equals("")) {
 					Toast.makeText(getApplicationContext(), getString(R.string.null_value),
+						     Toast.LENGTH_SHORT).show();
+				}
+				//邮箱格式不正确
+				else if (!Validation.isEmailValid(email)) {
+					Toast.makeText(getApplicationContext(), getString(R.string.email_format),
 						     Toast.LENGTH_SHORT).show();
 				}
 				// 密码不一致

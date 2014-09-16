@@ -26,7 +26,7 @@ public class CreateSucceed extends Activity {
 		Intent intent = getIntent();
 		code.setText(intent.getStringExtra("code"));
 		
-		backButton = (Button)findViewById(R.id.button2);
+		backButton = (Button)findViewById(R.id.back);
 		backButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

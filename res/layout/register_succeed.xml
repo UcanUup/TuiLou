@@ -9,12 +9,12 @@
     tools:context="com.example.init.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/hint"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="123dp"
+        android:layout_marginTop="132dp"
         android:text="@string/register_succeed_message"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -22,8 +22,9 @@
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="23dp"
         android:text="@string/login" />
     
 </RelativeLayout>

@@ -65,28 +65,30 @@ public class MyGroup extends Fragment {
 				
 				Group.groups = new ArrayList<String>();
 				Group.childs = new ArrayList<List<Group>>();
+				Group.child1 = new ArrayList<Group>();
+				Group.child2 = new ArrayList<Group>();
 				
 				//每个小组名
 				Group.groups.add(getString(R.string.my_create));
 				Group.groups.add(getString(R.string.my_join));
 				
 				//我的创建的子项
-				List<Group> child1 = new ArrayList<Group>();
+				Group.child1 = new ArrayList<Group>();
 				for (Iterator<Group> iterator = UserInfo.myCreate.iterator(); iterator.hasNext();) {
 					Group group = (Group) iterator.next();
-					child1.add(group);
+					Group.child1.add(group);
 				}
 				
 				//我的参与的子项
-				List<Group> child2 = new ArrayList<Group>();
+				Group.child2 = new ArrayList<Group>();
 				for (Iterator<Group> iterator = UserInfo.myJoin.iterator(); iterator.hasNext();) {
 					Group group = (Group) iterator.next();
-					child2.add(group);
+					Group.child2.add(group);
 				}
 				
 				//加入每个组的子项
-				Group.childs.add(child1);
-				Group.childs.add(child2);
+				Group.childs.add(Group.child1);
+				Group.childs.add(Group.child2);
 				
 				//关闭圆形进度条
 				customProgressDialog.dismiss();
@@ -97,6 +99,7 @@ public class MyGroup extends Fragment {
 				groupListView.expandGroup(0);
 				groupListView.expandGroup(1);
 				
+				Group.isUpdate = true;
 				times++;
 			}
 			//用于删除小组时
@@ -159,6 +162,11 @@ public class MyGroup extends Fragment {
 		
 		//不是第一次进入时
 		if (times > 1) {
+			//加入每个组的子项
+			Group.childs = new ArrayList<List<Group>>();
+			Group.childs.add(Group.child1);
+			Group.childs.add(Group.child2);
+			
 			//设置适配器
 			groupListView.setGroupIndicator(null);
 			groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
