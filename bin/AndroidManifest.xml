@@ -35,7 +35,7 @@
         <activity android:name="com.example.TabHost.MessageActivity" />
         <activity android:name="com.example.TabHost.MessageInfo" />
         
-        <activity android:name="com.example.TabHost.AddGroup" />
+        <activity android:name="com.example.TabHost.JoinGroup" />
         <activity android:name="com.example.TabHost.InviteSucceed" />
         <activity android:name="com.example.TabHost.InviteFail" />
         

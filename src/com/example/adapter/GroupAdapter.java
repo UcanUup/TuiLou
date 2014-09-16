@@ -1,7 +1,5 @@
 package com.example.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -14,34 +12,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.R;
+import com.example.utils.Group;
 
 public class GroupAdapter extends BaseExpandableListAdapter {
-	private List<String> groups = new ArrayList<String>();
-	private List<List<String>> childs = new ArrayList<List<String>>();
+	private List<String> groups;
+	private List<List<Group>> childs;
 
 	private Context mContext;
 	
-	public GroupAdapter(Context mContext) {
+	public GroupAdapter(Context mContext, List<String> groups, List<List<Group>> childs) {
 		super();
-		
-		//每个小组名
-		groups.add("我的参与");
-		groups.add("我的创建");
-		
-		//第一组
-		List<String> child1 = new ArrayList<String>();
-		child1.add("高数");
-		child1.add("C++");
-		child1.add("模电");
-		childs.add(child1);
-		
-		//第二组
-		List<String> child2 = new ArrayList<String>();
-		child2.add("计算机网络");
-		child2.add("编译原理");
-		childs.add(child2);
-		
 		this.mContext = mContext;
+		this.groups = groups;
+		this.childs = childs;
 	}
 
 	@Override
@@ -115,7 +98,7 @@ public class GroupAdapter extends BaseExpandableListAdapter {
 		TextView tv = (TextView)layout.findViewById(R.id.TextView1);
 		
 		//设置子内容
-		tv.setText(childs.get(groupPosition).get(childPosition));
+		tv.setText(childs.get(groupPosition).get(childPosition).getGname());
 	
 		return layout;
 	}

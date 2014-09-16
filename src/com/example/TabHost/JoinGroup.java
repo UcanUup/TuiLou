@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,16 +18,12 @@ import android.widget.Toast;
 import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
-import com.example.init.HomeActivity;
-import com.example.init.LoginActivity;
 import com.example.utils.CustomProgressDialog;
 import com.example.utils.UserInfo;
 
-public class CreateGroup extends Fragment {
-	private EditText groupText;
-	private EditText remarkText;
-	
-	private Button createButton;
+public class JoinGroup extends Fragment {
+	private Button confirmButton;
+	private EditText code;
 	
 	private HashMap<String, String> params;
 	
@@ -48,14 +43,22 @@ public class CreateGroup extends Fragment {
 			customProgressDialog.dismiss();
 			
 			//用户名已经存在
-			if (result.equals("%exist%")) {
-				Toast.makeText(getActivity(), getString(R.string.group_exist),
-					     Toast.LENGTH_SHORT).show();
+			if (result.equals("%nothing%")) {
+				Toast.makeText(getActivity(), getString(R.string.code_no_exist),
+						Toast.LENGTH_SHORT).show();
+			}
+			else if (result.equals("%yourself%")) {
+				Toast.makeText(getActivity(), getString(R.string.your_group),
+						Toast.LENGTH_SHORT).show();
+			}
+			else if (result.equals("%already%")) {
+				Toast.makeText(getActivity(), getString(R.string.already_add_group),
+						Toast.LENGTH_SHORT).show();
 			}
 			else {
 				Intent intent = new Intent();
-				intent.putExtra("code", result);
-				intent.setClass(getActivity(), CreateSucceed.class);
+				intent.putExtra("groupName", result);
+				intent.setClass(getActivity(), InviteSucceed.class);
 				startActivity(intent);
 			}
 		}
@@ -65,23 +68,22 @@ public class CreateGroup extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.create_group, container,
+		View rootView = inflater.inflate(R.layout.add_group, container,
 				false);
 		
-		groupText = (EditText)rootView.findViewById(R.id.groupName);
-		remarkText = (EditText)rootView.findViewById(R.id.remark);
+		confirmButton= (Button)rootView.findViewById(R.id.confirmButton);
+		code = (EditText)rootView.findViewById(R.id.groupName);
 		
-		createButton = (Button)rootView.findViewById(R.id.createButton);
-		createButton.setOnClickListener(new OnClickListener() {
+		//确认按钮的监听器
+		confirmButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// 点击登陆按钮后,将用户的输入转为字符串
-				String group = groupText.getText().toString();
-				String remark = remarkText.getText().toString();
-				
+				String groupCode = code.getText().toString();
+
 				// 输入空值
-				if (group.equals("") || remark.equals("")) {
+				if (groupCode.equals("")) {
 					Toast.makeText(getActivity(), getString(R.string.null_value),
 						     Toast.LENGTH_SHORT).show();
 				}
@@ -92,8 +94,7 @@ public class CreateGroup extends Fragment {
 					
 					// 设置请求链接的参数
 					params = new HashMap<String, String>();
-					params.put("gn", group);
-					params.put("re", remark);
+					params.put("co", groupCode);
 					params.put("em", UserInfo.email);
 					
 					//android 3.0以后规定要在新的线程执行网络访问等操作
@@ -102,7 +103,7 @@ public class CreateGroup extends Fragment {
 						@Override
 						public void run() {
 							HttpLinker httpLinker = new HttpLinker();
-							String result = httpLinker.link(params, HttpUrl.insert_group);
+							String result = httpLinker.link(params, HttpUrl.join_group);
 							
 							Message msg = new Message();
 							Bundle bundle = new Bundle();

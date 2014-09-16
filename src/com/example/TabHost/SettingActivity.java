@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.R;
-import com.example.init.UserInfo;
+import com.example.utils.UserInfo;
 
 public class SettingActivity extends Fragment {
 	private TextView userName;

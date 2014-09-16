@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.utils.UserInfo;
 
 public class HomeActivity extends FragmentActivity {
 
@@ -35,7 +36,7 @@ public class HomeActivity extends FragmentActivity {
 		tabHost.addTab(
 				tabHost.newTabSpec(getString(R.string.add_group))
 					.setIndicator(getString(R.string.add_group)), 
-				com.example.TabHost.AddGroup.class,
+				com.example.TabHost.JoinGroup.class,
 				null);
 		tabHost.addTab(
 				tabHost.newTabSpec(getString(R.string.create_group))

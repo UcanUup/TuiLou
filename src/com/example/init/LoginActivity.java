@@ -17,6 +17,7 @@ import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
 import com.example.utils.CustomProgressDialog;
+import com.example.utils.UserInfo;
 
 public class LoginActivity extends Activity {
 	private EditText emailText;

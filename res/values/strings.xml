@@ -29,7 +29,8 @@
     <string name="group_exist">小组名已存在</string>
     <string name="invite_succeed">已成功加入小组</string>
     <string name="code_no_exist">邀请码不存在</string>
-    <string name="your_group">这是自己创建的小组的邀请码</string>
+    <string name="your_group">这是自己创建的小组邀请码</string>
+    <string name="already_add_group">已经加入该小组</string>
     
     <string name="create_group">创建小组</string>
     <string name="group_name">组名</string>
@@ -39,6 +40,8 @@
     <string name="share">分享</string>
     
     <string name="my_group">我的小组</string>
+    <string name="my_create">我的创建</string>
+    <string name="my_join">我的参与</string>
     
     <string name="setting">设置</string>
     <string name="exit">退出账户</string>
