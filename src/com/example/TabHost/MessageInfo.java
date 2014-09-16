@@ -12,8 +12,11 @@ import com.example.R;
 
 public class MessageInfo extends Activity {
 	private Button backButton;
-	private TextView Title;
-	private TextView Info;
+	
+	private TextView group;
+	private TextView time;
+	private TextView title;
+	private TextView content;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +25,21 @@ public class MessageInfo extends Activity {
 		
 		setContentView(R.layout.message_info);
 		
+		backButton = (Button)findViewById(R.id.backButton);
+		group = (TextView)findViewById(R.id.Group);
+		time = (TextView)findViewById(R.id.time);
+		title = (TextView)findViewById(R.id.Title);
+		content = (TextView)findViewById(R.id.Content);
+		
 		//得到Intent对象
 		Intent intent = getIntent();
-		String groupName = intent.getStringExtra("groupName");
-		String groupInfo = intent.getStringExtra("groupInfo");
 		
-		backButton = (Button)findViewById(R.id.backButton);
-		Title = (TextView)findViewById(R.id.hint);
-		Info = (TextView)findViewById(R.id.inviteCode);
+		//设置显示的内容
+		group.setText(intent.getStringExtra("groupName"));
+		time.setText(intent.getStringExtra("time"));
+		title.setText(intent.getStringExtra("title"));
+		content.setText(intent.getStringExtra("content"));
 		
-		Title.setText(groupName);
-		Info.setText(groupInfo);
 		backButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

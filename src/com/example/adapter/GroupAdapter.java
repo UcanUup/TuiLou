@@ -3,6 +3,7 @@ package com.example.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.R;
+import com.example.TabHost.SendMessage;
+import com.example.init.StartActivity;
 import com.example.utils.Group;
 
 public class GroupAdapter extends BaseExpandableListAdapter {
@@ -96,17 +99,19 @@ public class GroupAdapter extends BaseExpandableListAdapter {
 		// TODO Auto-generated method stub
 		RelativeLayout layout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.child, null);
 		TextView tv = (TextView)layout.findViewById(R.id.TextView1);
+		TextView tv2 = (TextView)layout.findViewById(R.id.TextView2);
 		
 		//设置子内容
 		tv.setText(childs.get(groupPosition).get(childPosition).getGname());
-	
+		
+		if (groupPosition == 0)
+			tv2.setText(childs.get(groupPosition).get(childPosition).getCode());
+		
 		return layout;
 	}
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
-		
 		//返回true时点击会有闪烁
 		return true;
 	}

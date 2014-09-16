@@ -12,13 +12,14 @@
         android:id="@+id/hint"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:text="abcd" />
 
 	<TextView
 	    android:id="@+id/inviteCode"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentRight="true"
-	    android:layout_toRightOf="@+id/hint" />
+	    android:text="abcd" />
 
 </RelativeLayout>

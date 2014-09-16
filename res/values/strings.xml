@@ -42,6 +42,10 @@
     <string name="my_group">我的小组</string>
     <string name="my_create">我的创建</string>
     <string name="my_join">我的参与</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="send_message">发送消息</string>
+    <string name="send_message_succeed">发送消息成功</string>
     
     <string name="setting">设置</string>
     <string name="exit">退出账户</string>

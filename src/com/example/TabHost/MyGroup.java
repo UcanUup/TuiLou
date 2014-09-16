@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 
 import com.example.R;
 import com.example.adapter.GroupAdapter;
@@ -117,14 +119,20 @@ public class MyGroup extends Fragment {
 		thread.start();
 		
 		//点击每一项时的触发事件
-		groupListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				
-			}
+		groupListView.setOnChildClickListener(new OnChildClickListener() {
 			
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				if (groupPosition == 0) {
+					Intent intent = new Intent();
+					intent.setClass(getActivity(), SendMessage.class);
+					intent.putExtra("groupName", childs.get(groupPosition).get(childPosition).getGname());
+					startActivity(intent);
+				}
+				
+				return false;
+			}
 		});
 		
 		//长按时触发的事件
