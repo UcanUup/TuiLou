@@ -30,7 +30,8 @@ public class ExitApplication extends Application {
 	 // 遍历所有Activity并finish
 	 public void exit() {
 		 for(Activity activity : activityList) {
-			 activity.finish();
+			 if (activity != null)
+				 activity.finish();
 		 }
 		 System.exit(0);
 	 }

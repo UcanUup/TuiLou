@@ -67,7 +67,10 @@ public class RegisterActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-				
+		
+		// 添加到需要退出的Activity中
+		ExitApplication.getInstance().addActivity(this);
+		
 		setContentView(R.layout.register);
 		
 		emailText = (EditText)findViewById(R.id.email);

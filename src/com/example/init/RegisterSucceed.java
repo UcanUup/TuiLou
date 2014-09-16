@@ -17,6 +17,9 @@ public class RegisterSucceed extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// 添加到需要退出的Activity中
+		ExitApplication.getInstance().addActivity(this);
+		
 		setContentView(R.layout.register_succeed);
 		
 		login = (Button)findViewById(R.id.login);
