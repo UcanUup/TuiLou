@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.R;
 
 public class MessageInfo extends Activity {
+	
 	private Button backButton;
 	
 	private TextView group;
@@ -20,7 +21,6 @@ public class MessageInfo extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.message_info);
@@ -31,10 +31,10 @@ public class MessageInfo extends Activity {
 		title = (TextView)findViewById(R.id.Title);
 		content = (TextView)findViewById(R.id.Content);
 		
-		//得到Intent对象
+		// 得到Intent对象
 		Intent intent = getIntent();
 		
-		//设置显示的内容
+		// 设置显示的内容
 		group.setText(intent.getStringExtra("groupName"));
 		time.setText(intent.getStringExtra("time"));
 		title.setText(intent.getStringExtra("title"));
@@ -44,7 +44,6 @@ public class MessageInfo extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});

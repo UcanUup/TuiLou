@@ -22,6 +22,7 @@ import com.example.utils.UserInfo;
 import com.example.utils.Validation;
 
 public class SendMessage extends Activity {
+	
 	private TextView gname;
 	private EditText titleText;
 	private EditText contentText;
@@ -34,7 +35,7 @@ public class SendMessage extends Activity {
 	
 	private CustomProgressDialog customProgressDialog;
 	
-	//使用Handler来等待子线程完成操作
+	// 使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
 		@Override
@@ -47,10 +48,10 @@ public class SendMessage extends Activity {
 			titleText.setText("");
 			contentText.setText("");
 			
-			//关闭圆形进度条
+			// 关闭圆形进度条
 			customProgressDialog.dismiss();
 			
-			//用户名已经存在
+			// 用户名已经存在
 			if (result.equals("%success%")) {
 				Toast.makeText(SendMessage.this, getString(R.string.send_message_succeed),
 					     Toast.LENGTH_SHORT).show();
@@ -60,7 +61,6 @@ public class SendMessage extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.send_message);
@@ -71,22 +71,21 @@ public class SendMessage extends Activity {
 		back = (Button)findViewById(R.id.back);
 		send = (Button)findViewById(R.id.send);
 		
-		//设置组名
+		// 设置组名
 		Intent intent = getIntent();
 		groupName = intent.getStringExtra("groupName");
 		gname.setText(groupName);
 		
-		//返回
+		// 返回
 		back.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});
 		
-		//发送消息
+		// 发送消息
 		send.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -106,7 +105,7 @@ public class SendMessage extends Activity {
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {
-					//显示圆形进度条
+					// 显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(SendMessage.this);
 					customProgressDialog.show();
 					
@@ -117,9 +116,9 @@ public class SendMessage extends Activity {
 					params.put("ti", title);
 					params.put("co", content);
 					
-					//android 3.0以后规定要在新的线程执行网络访问等操作
+					// android 3.0以后规定要在新的线程执行网络访问等操作
 					Thread thread = new Thread(new Runnable() {
-						//连接服务器
+						// 连接服务器
 						@Override
 						public void run() {
 							HttpLinker httpLinker = new HttpLinker();
@@ -132,7 +131,7 @@ public class SendMessage extends Activity {
 							handler.sendMessage(msg);
 						}
 					});
-					//启动线程
+					// 启动线程
 					thread.start();
 				}
 			}

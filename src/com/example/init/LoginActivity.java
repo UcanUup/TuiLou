@@ -22,6 +22,7 @@ import com.example.utils.UserInfo;
 import com.example.utils.Validation;
 
 public class LoginActivity extends Activity {
+	
 	private EditText emailText;
 	private EditText pwdText;
 	
@@ -34,7 +35,7 @@ public class LoginActivity extends Activity {
 	
 	private String email;
 	
-	//使用Handler来等待子线程完成操作
+	// 使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
 		@Override
@@ -47,14 +48,15 @@ public class LoginActivity extends Activity {
 			emailText.setText("");
 			pwdText.setText("");
 			
-			//关闭圆形进度条
+			// 关闭圆形进度条
 			customProgressDialog.dismiss();
 			
-			//用户名已经存在
+			// 用户名已经存在
 			if (result.equals("%nothing%")) {
 				Toast.makeText(getApplicationContext(), getString(R.string.user_no_exist),
 					     Toast.LENGTH_SHORT).show();
 			}
+			// 密码错误
 			else if (result.equals("%error%")) {
 				Toast.makeText(getApplicationContext(), getString(R.string.password_error),
 					     Toast.LENGTH_SHORT).show();
@@ -76,10 +78,9 @@ public class LoginActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		//添加到需要退出的Activity中
+		// 添加到需要退出的Activity中
 		ExitApplication.getInstance().addActivity(this);
 		
 		setContentView(R.layout.login);
@@ -87,7 +88,7 @@ public class LoginActivity extends Activity {
 		emailText = (EditText)findViewById(R.id.email);
 		pwdText = (EditText)findViewById(R.id.password);
 		
-		//点击登陆按钮时
+		// 点击登陆按钮时
 		loginButton = (Button)findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(new OnClickListener() {
 			
@@ -113,7 +114,7 @@ public class LoginActivity extends Activity {
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {
-					//显示圆形进度条
+					// 显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(LoginActivity.this);
 					customProgressDialog.show();
 					
@@ -122,9 +123,9 @@ public class LoginActivity extends Activity {
 					params.put("em", email);
 					params.put("pw", pwd);
 					
-					//android 3.0以后规定要在新的线程执行网络访问等操作
+					// android 3.0以后规定要在新的线程执行网络访问等操作
 					Thread thread = new Thread(new Runnable() {
-						//连接服务器
+						// 连接服务器
 						@Override
 						public void run() {
 							HttpLinker httpLinker = new HttpLinker();
@@ -137,13 +138,13 @@ public class LoginActivity extends Activity {
 							handler.sendMessage(msg);
 						}
 					});
-					//启动线程
+					// 启动线程
 					thread.start();
 				}
 			}
 		});
 		
-		//点击注册按钮
+		// 点击注册按钮
 		registerButton = (Button)findViewById(R.id.registerButton);
 		registerButton.setOnClickListener(new OnClickListener() {
 			

@@ -1,6 +1,7 @@
 package com.example.utils;
 
 public class MyMessage {
+	
 	private String gname;
 	private String title;
 	private String content;
@@ -30,4 +31,5 @@ public class MyMessage {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	
 }

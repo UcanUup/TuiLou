@@ -1,5 +1,6 @@
 package com.example.TabHost;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,12 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.R;
+import com.example.init.ExitApplication;
 import com.example.init.LoginActivity;
 import com.example.sqlite.UserDatabase;
 import com.example.utils.Group;
 import com.example.utils.UserInfo;
 
 public class SettingActivity extends Fragment {
+	
 	private TextView userName;
 	
 	private Button exitButton;
@@ -26,7 +29,7 @@ public class SettingActivity extends Fragment {
 		View rootView = inflater.inflate(R.layout.setting, container,
 				false);
 		
-		//设置用户名
+		// 设置用户名
 		userName = (TextView)rootView.findViewById(R.id.userName);
 		userName.setText(UserInfo.userName);
 		
@@ -53,7 +56,13 @@ public class SettingActivity extends Fragment {
 				UserDatabase userDatabase = new UserDatabase(getActivity());
 				userDatabase.delete();
 				
-				getActivity().finish();
+				// 跳转到登陆界面
+				Intent intent = new Intent();
+				intent.setClass(getActivity(), LoginActivity.class);
+				startActivity(intent);
+				
+				// 清除Activity堆栈
+				ExitApplication.getInstance().exit();
 			}
 		});
 		

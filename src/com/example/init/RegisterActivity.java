@@ -20,6 +20,7 @@ import com.example.utils.CustomProgressDialog;
 import com.example.utils.Validation;
 
 public class RegisterActivity extends Activity {
+	
 	private EditText emailText;
 	private EditText pwdText;
 	private EditText cpwdText;
@@ -32,7 +33,7 @@ public class RegisterActivity extends Activity {
 	
 	private CustomProgressDialog customProgressDialog;
 	
-	//使用Handler来等待子线程完成操作
+	// 使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
 		@Override
@@ -47,10 +48,10 @@ public class RegisterActivity extends Activity {
 			cpwdText.setText("");
 			nameText.setText("");
 			
-			//关闭圆形进度条
+			// 关闭圆形进度条
 			customProgressDialog.dismiss();
 			
-			//用户名已经存在
+			// 用户名已经存在
 			if (result.equals("%exist%")) {
 				Toast.makeText(getApplicationContext(), getString(R.string.user_already_exist),
 					     Toast.LENGTH_SHORT).show();
@@ -65,7 +66,6 @@ public class RegisterActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 				
 		setContentView(R.layout.register);
@@ -75,19 +75,18 @@ public class RegisterActivity extends Activity {
 		cpwdText = (EditText)findViewById(R.id.confirmPassword);
 		nameText = (EditText)findViewById(R.id.nickname);
 		
+		// 点击返回按钮
 		backButton = (Button)findViewById(R.id.backButton);
-		//点击返回按钮
 		backButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});
 				
+		// 点击注册按钮的操作
 		registerButton = (Button)findViewById(R.id.registerButton);
-		//点击注册按钮的操作
 		registerButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -103,7 +102,7 @@ public class RegisterActivity extends Activity {
 					Toast.makeText(getApplicationContext(), getString(R.string.null_value),
 						     Toast.LENGTH_SHORT).show();
 				}
-				//邮箱格式不正确
+				// 邮箱格式不正确
 				else if (!Validation.isEmailValid(email)) {
 					Toast.makeText(getApplicationContext(), getString(R.string.email_format),
 						     Toast.LENGTH_SHORT).show();
@@ -119,7 +118,7 @@ public class RegisterActivity extends Activity {
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {
-					//显示圆形进度条
+					// 显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(RegisterActivity.this);
 					customProgressDialog.show();
 					
@@ -129,12 +128,11 @@ public class RegisterActivity extends Activity {
 					params.put("pw", pwd);
 					params.put("na", name);
 				
-					//android 3.0以后规定要在新的线程执行网络访问等操作
+					// android 3.0以后规定要在新的线程执行网络访问等操作
 					Thread thread = new Thread(new Runnable() {
-						//连接服务器
+						// 连接服务器
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
 							HttpLinker httpLinker = new HttpLinker();
 							String result = httpLinker.link(params, HttpUrl.insert_user);
 							
@@ -145,7 +143,7 @@ public class RegisterActivity extends Activity {
 							handler.sendMessage(msg);
 						}
 					});
-					//启动线程
+					// 启动线程
 					thread.start();
 				}
 			}

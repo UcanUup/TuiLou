@@ -24,6 +24,7 @@ import com.example.utils.UserInfo;
 import com.example.utils.Validation;
 
 public class CreateGroup extends Fragment {
+	
 	private EditText groupText;
 	private EditText remarkText;
 	
@@ -36,7 +37,7 @@ public class CreateGroup extends Fragment {
 	private String group;
 	private String remark;
 	
-	//使用Handler来等待子线程完成操作
+	// 使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
 		@Override
@@ -46,20 +47,20 @@ public class CreateGroup extends Fragment {
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
 			
-			//清空
+			// 清空
 			groupText.setText("");
 			remarkText.setText("");
 			
-			//关闭圆形进度条
+			// 关闭圆形进度条
 			customProgressDialog.dismiss();
 			
-			//小组已经存在
+			// 小组已经存在
 			if (result.equals("%exist%")) {
 				Toast.makeText(getActivity(), getString(R.string.group_exist),
 					     Toast.LENGTH_SHORT).show();
 			}
 			else {
-				//成功后加入组到childs用于切换选项卡时快速加载
+				// 成功后加入组到childs用于切换选项卡时快速加载
 				if (Group.isUpdate) {
 					Group g = new Group();
 					g.setGname(group);
@@ -70,7 +71,7 @@ public class CreateGroup extends Fragment {
 					Group.child1.add(g);
 				}
 				
-				//页面跳转
+				// 页面跳转
 				Intent intent = new Intent();
 				intent.putExtra("code", result);
 				intent.setClass(getActivity(), CreateSucceed.class);
@@ -82,7 +83,6 @@ public class CreateGroup extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View rootView = inflater.inflate(R.layout.create_group, container,
 				false);
 		
@@ -109,7 +109,7 @@ public class CreateGroup extends Fragment {
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {
-					//显示圆形进度条
+					// 显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(getActivity());
 					customProgressDialog.show();
 					
@@ -119,9 +119,9 @@ public class CreateGroup extends Fragment {
 					params.put("re", remark);
 					params.put("em", UserInfo.email);
 					
-					//android 3.0以后规定要在新的线程执行网络访问等操作
+					// android 3.0以后规定要在新的线程执行网络访问等操作
 					Thread thread = new Thread(new Runnable() {
-						//连接服务器
+						// 连接服务器
 						@Override
 						public void run() {
 							HttpLinker httpLinker = new HttpLinker();
@@ -134,7 +134,7 @@ public class CreateGroup extends Fragment {
 							handler.sendMessage(msg);
 						}
 					});
-					//启动线程
+					// 启动线程
 					thread.start();
 				}
 			}

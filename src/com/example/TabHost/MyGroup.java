@@ -33,6 +33,7 @@ import com.example.utils.UserInfo;
 import com.example.utils.Validation;
 
 public class MyGroup extends Fragment {
+	
 	private ExpandableListView groupListView;
 	
 	private int times = 1;
@@ -44,7 +45,7 @@ public class MyGroup extends Fragment {
 	private int groupPosition;
 	private int childPosition;
 	
-	//使用Handler来等待子线程完成操作
+	// 使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
 		@Override
@@ -54,15 +55,15 @@ public class MyGroup extends Fragment {
 			Bundle bundle = msg.getData();
 			String result = bundle.getString("result");
 			
-			//用于刷新小组时
+			// 用于刷新小组时
 			if (msg.what == 1) {
-				//划分我的创建和参与
+				// 划分我的创建和参与
 				String[] myGroup = result.split("\\^");
 	
-				//我的创建
+				// 我的创建
 				UserInfo.myCreate = ParseMyGroup.parse(myGroup[0]);
 				
-				//我的参与
+				// 我的参与
 				UserInfo.myJoin = ParseMyGroup.parse(myGroup[1]);
 				
 				Group.groups = new ArrayList<String>();
@@ -70,32 +71,32 @@ public class MyGroup extends Fragment {
 				Group.child1 = new ArrayList<Group>();
 				Group.child2 = new ArrayList<Group>();
 				
-				//每个小组名
+				// 每个小组名
 				Group.groups.add(getString(R.string.my_create));
 				Group.groups.add(getString(R.string.my_join));
 				
-				//我的创建的子项
+				// 我的创建的子项
 				Group.child1 = new ArrayList<Group>();
 				for (Iterator<Group> iterator = UserInfo.myCreate.iterator(); iterator.hasNext();) {
 					Group group = (Group) iterator.next();
 					Group.child1.add(group);
 				}
 				
-				//我的参与的子项
+				// 我的参与的子项
 				Group.child2 = new ArrayList<Group>();
 				for (Iterator<Group> iterator = UserInfo.myJoin.iterator(); iterator.hasNext();) {
 					Group group = (Group) iterator.next();
 					Group.child2.add(group);
 				}
 				
-				//加入每个组的子项
+				// 加入每个组的子项
 				Group.childs.add(Group.child1);
 				Group.childs.add(Group.child2);
 				
-				//关闭圆形进度条
+				// 关闭圆形进度条
 				customProgressDialog.dismiss();
 				
-				//设置设配器
+				// 设置适配器
 				groupListView.setGroupIndicator(null);
 				groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
 				groupListView.expandGroup(0);
@@ -104,12 +105,12 @@ public class MyGroup extends Fragment {
 				Group.isUpdate = true;
 				times++;
 			}
-			//用于删除小组时
+			// 用于删除小组时
 			else if (msg.what == 2 || msg.what == 3) {
-				//关闭圆形进度条
+				// 关闭圆形进度条
 				customProgressDialog.dismiss();
 				
-				//设置设配器
+				// 设置适配器
 				groupListView.setGroupIndicator(null);
 				groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
 				groupListView.expandGroup(0);
@@ -120,7 +121,6 @@ public class MyGroup extends Fragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		// 网络连接不可用
@@ -129,7 +129,7 @@ public class MyGroup extends Fragment {
 				     Toast.LENGTH_SHORT).show();
 		}
 		else {
-			//显示圆形进度条
+			// 显示圆形进度条
 			customProgressDialog = new CustomProgressDialog(getActivity());
 			customProgressDialog.show();
 			
@@ -137,9 +137,9 @@ public class MyGroup extends Fragment {
 			params = new HashMap<String, String>();
 			params.put("em", UserInfo.email);
 			
-			//android 3.0以后规定要在新的线程执行网络访问等操作
+			// android 3.0以后规定要在新的线程执行网络访问等操作
 			Thread thread = new Thread(new Runnable() {
-				//连接服务器
+				// 连接服务器
 				@Override
 				public void run() {
 					HttpLinker httpLinker = new HttpLinker();
@@ -153,37 +153,36 @@ public class MyGroup extends Fragment {
 					handler.sendMessage(msg);
 				}
 			});
-			//启动线程
+			// 启动线程
 			thread.start();
 		}
 	}
 	
-	//每一次切换到这个选项时都会调用
+	// 每一次切换到这个选项时都会调用
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View rootView = inflater.inflate(R.layout.group_expandable_list, container,
 				false);
 		
 		groupListView = (ExpandableListView)rootView.findViewById(R.id.groupListView);
 		registerForContextMenu(rootView);
 		
-		//不是第一次进入时
+		// 不是第一次进入时
 		if (times > 1) {
-			//加入每个组的子项
+			// 加入每个组的子项
 			Group.childs = new ArrayList<List<Group>>();
 			Group.childs.add(Group.child1);
 			Group.childs.add(Group.child2);
 			
-			//设置适配器
+			// 设置适配器
 			groupListView.setGroupIndicator(null);
 			groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
 			groupListView.expandGroup(0);
 			groupListView.expandGroup(1);
 		}
 		
-		//点击每一项时的触发事件
+		// 点击每一项时的触发事件
 		groupListView.setOnChildClickListener(new OnChildClickListener() {
 			
 			@Override
@@ -200,7 +199,7 @@ public class MyGroup extends Fragment {
 			}
 		});
 		
-		//长按时触发的事件
+		// 长按时触发的事件
 		groupListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
@@ -209,13 +208,13 @@ public class MyGroup extends Fragment {
 				
 				if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD)
 				{
-					//得到位置
+					// 得到位置
 					long packedPos = ((ExpandableListView) parent).getExpandableListPosition(position);
 					groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
 					childPosition = ExpandableListView.getPackedPositionChild(packedPos);
 
 					if (groupPosition == 0) {
-						//弹出对话框
+						// 弹出对话框
 						new AlertDialog.Builder(getActivity())   
 						.setTitle(getString(R.string.confirm))  
 						.setMessage(getString(R.string.confirm_delete) + "?")  
@@ -224,7 +223,7 @@ public class MyGroup extends Fragment {
 						.show();  
 					}
 					else if (groupPosition == 1) {
-						//弹出对话框
+						// 弹出对话框
 						new AlertDialog.Builder(getActivity())   
 						.setTitle(getString(R.string.confirm))  
 						.setMessage(getString(R.string.exit_group) + "?")  
@@ -244,7 +243,7 @@ public class MyGroup extends Fragment {
 		return rootView;
 	}
 	
-	//点击确认删除按钮
+	// 点击确认删除按钮
 	public class DeleteOnClickListener implements OnClickListener {
 
 		@Override
@@ -257,11 +256,11 @@ public class MyGroup extends Fragment {
 					     Toast.LENGTH_SHORT).show();
 			}
 			else {
-				//从本地移除这个组
+				// 从本地移除这个组
 				UserInfo.myCreate.remove(group);
 				Group.childs.get(groupPosition).remove(childPosition);
 				
-				//显示圆形进度条
+				// 显示圆形进度条
 				customProgressDialog = new CustomProgressDialog(getActivity());
 				customProgressDialog.show();
 				
@@ -269,9 +268,9 @@ public class MyGroup extends Fragment {
 				params = new HashMap<String, String>();
 				params.put("gn", group.getGname());
 				
-				//android 3.0以后规定要在新的线程执行网络访问等操作
+				// android 3.0以后规定要在新的线程执行网络访问等操作
 				Thread thread = new Thread(new Runnable() {
-					//连接服务器
+					// 连接服务器
 					@Override
 					public void run() {
 						HttpLinker httpLinker = new HttpLinker();
@@ -285,14 +284,14 @@ public class MyGroup extends Fragment {
 						handler.sendMessage(msg);
 					}
 				});
-				//启动线程
+				// 启动线程
 				thread.start();
 			}
 		}
 		
 	}
 	
-	//点击确认退出按钮
+	// 点击确认退出按钮
 	public class ExitOnClickListener implements OnClickListener {
 
 		@Override
@@ -305,11 +304,11 @@ public class MyGroup extends Fragment {
 					     Toast.LENGTH_SHORT).show();
 			}
 			else {
-				//从本地移除这个组
+				// 从本地移除这个组
 				UserInfo.myJoin.remove(group);
 				Group.childs.get(groupPosition).remove(childPosition);
 				
-				//显示圆形进度条
+				// 显示圆形进度条
 				customProgressDialog = new CustomProgressDialog(getActivity());
 				customProgressDialog.show();
 				
@@ -318,9 +317,9 @@ public class MyGroup extends Fragment {
 				params.put("gn", group.getGname());
 				params.put("em", UserInfo.email);
 				
-				//android 3.0以后规定要在新的线程执行网络访问等操作
+				// android 3.0以后规定要在新的线程执行网络访问等操作
 				Thread thread = new Thread(new Runnable() {
-					//连接服务器
+					// 连接服务器
 					@Override
 					public void run() {
 						HttpLinker httpLinker = new HttpLinker();
@@ -334,10 +333,10 @@ public class MyGroup extends Fragment {
 						handler.sendMessage(msg);
 					}
 				});
-				//启动线程
+				// 启动线程
 				thread.start();
 			}
-		}
-		
+		}	
 	}
+	
 }

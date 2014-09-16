@@ -24,6 +24,7 @@ import com.example.utils.UserInfo;
 import com.example.utils.Validation;
 
 public class JoinGroup extends Fragment {
+	
 	private Button confirmButton;
 	private EditText code;
 	
@@ -33,7 +34,7 @@ public class JoinGroup extends Fragment {
 	
 	private String groupCode;
 	
-	//使用Handler来等待子线程完成操作
+	// 使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
 		@Override
@@ -45,7 +46,7 @@ public class JoinGroup extends Fragment {
 			
 			code.setText("");
 			
-			//关闭圆形进度条
+			// 关闭圆形进度条
 			customProgressDialog.dismiss();
 			
 			// 邀请码不存在
@@ -53,10 +54,12 @@ public class JoinGroup extends Fragment {
 				Toast.makeText(getActivity(), getString(R.string.code_no_exist),
 						Toast.LENGTH_SHORT).show();
 			}
+			// 自己创建的小组
 			else if (result.equals("%yourself%")) {
 				Toast.makeText(getActivity(), getString(R.string.your_group),
 						Toast.LENGTH_SHORT).show();
 			}
+			// 已经加入了小组
 			else if (result.equals("%already%")) {
 				Toast.makeText(getActivity(), getString(R.string.already_add_group),
 						Toast.LENGTH_SHORT).show();
@@ -64,7 +67,7 @@ public class JoinGroup extends Fragment {
 			else {
 				String[] myGroup = result.split("\\^");
 				
-				//成功后加入组到childs用于切换选项卡时快速加载
+				// 成功后加入组到childs用于切换选项卡时快速加载
 				if (Group.isUpdate) {
 					Group g = new Group();
 					g.setGname(myGroup[0]);
@@ -86,14 +89,13 @@ public class JoinGroup extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View rootView = inflater.inflate(R.layout.add_group, container,
 				false);
 		
 		confirmButton= (Button)rootView.findViewById(R.id.confirmButton);
 		code = (EditText)rootView.findViewById(R.id.groupName);
 		
-		//确认按钮的监听器
+		// 确认按钮的监听器
 		confirmButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -112,7 +114,7 @@ public class JoinGroup extends Fragment {
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {
-					//显示圆形进度条
+					// 显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(getActivity());
 					customProgressDialog.show();
 					
@@ -121,9 +123,9 @@ public class JoinGroup extends Fragment {
 					params.put("co", groupCode);
 					params.put("em", UserInfo.email);
 					
-					//android 3.0以后规定要在新的线程执行网络访问等操作
+					// android 3.0以后规定要在新的线程执行网络访问等操作
 					Thread thread = new Thread(new Runnable() {
-						//连接服务器
+						// 连接服务器
 						@Override
 						public void run() {
 							HttpLinker httpLinker = new HttpLinker();
@@ -136,7 +138,7 @@ public class JoinGroup extends Fragment {
 							handler.sendMessage(msg);
 						}
 					});
-					//启动线程
+					// 启动线程
 					thread.start();
 				}
 			}

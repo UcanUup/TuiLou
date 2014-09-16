@@ -3,6 +3,7 @@ package com.example.utils;
 import java.util.List;
 
 public class Group {
+	
 	private String gname;
 	private String email;
 	private String remark;
@@ -40,4 +41,5 @@ public class Group {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
 }

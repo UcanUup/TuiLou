@@ -11,18 +11,19 @@ import android.widget.TextView;
 import com.example.R;
 
 public class InviteSucceed extends Activity {
+	
 	private TextView group;
 	
 	private Button backButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.invite_succeed);
 		
-		//设置组名
+		// 设置组名
 		group = (TextView)findViewById(R.id.group);
 		Intent intent = getIntent();
 		group.setText(intent.getStringExtra("groupName"));
@@ -32,7 +33,6 @@ public class InviteSucceed extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});

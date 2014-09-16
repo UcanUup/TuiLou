@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 public class HttpLinker {
+	
 	public String link(HashMap<String, String> params, String page) {
 		String url = HttpUrl.baseUrl + page;
 		String httpUrl = url;
@@ -34,7 +35,7 @@ public class HttpLinker {
         }
     	
     	try {
-			//设置参数集
+			// 设置参数集
 			HttpEntity httpEntity = new UrlEncodedFormEntity(pa, "utf-8");
 			// httpRequest设置链接后面的参数
 			httpRequest.setEntity(httpEntity);
@@ -56,4 +57,5 @@ public class HttpLinker {
 		
 		return result;
 	}
+	
 }

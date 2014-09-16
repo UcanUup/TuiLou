@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class Validation {
+	
 	// 输入的字符串是否是邮箱
 	public static boolean isEmailValid(String email) {
 		  boolean isValid = false;
@@ -29,4 +30,5 @@ public class Validation {
         NetworkInfo info = manager.getActiveNetworkInfo();  
         return (info != null && info.isAvailable());  
     }  
+	
 }

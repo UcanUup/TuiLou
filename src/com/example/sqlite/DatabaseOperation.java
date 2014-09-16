@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DatabaseOperation {
+	
 	private Context mContext;
 	
 	private DatabaseHelper databaseHelper;
@@ -14,12 +15,12 @@ public class DatabaseOperation {
 		this.mContext = mContext;
 	}
 	
-	//打开数据库
+	// 打开数据库
 	public void open(String dbName, String createSql) {
 		databaseHelper = new DatabaseHelper(mContext, dbName, createSql);
 	}
 	
-	//关闭数据库
+	// 关闭数据库
 	public void close() {
 		if (db != null)
 			db.close();
@@ -28,29 +29,30 @@ public class DatabaseOperation {
 			databaseHelper.close();
 	}
 	
-	//插入数据
+	// 插入数据
 	public void insert(String sql) {
 		db = databaseHelper.getWritableDatabase();
 		db.execSQL(sql);
 	}
 	
-	//更新数据
+	// 更新数据
 	public void update(String sql) {
 		db = databaseHelper.getWritableDatabase();
 		db.execSQL(sql);
 	}
 	
-	//删除数据
+	// 删除数据
 	public void delete(String sql) {
 		db = databaseHelper.getWritableDatabase();
 		db.execSQL(sql);
 	}
 	
-	//查找数据
+	// 查找数据
 	public Cursor find(String sql) {
 		db = databaseHelper.getWritableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);
 		
 		return cursor;
 	}
+	
 }

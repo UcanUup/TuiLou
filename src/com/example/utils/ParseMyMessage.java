@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ParseMyMessage {
+	
 	public static List<MyMessage> parse(String jsonData) {
 		Type listType = new TypeToken<List<MyMessage>>(){}.getType();
 		Gson gson = new Gson();
@@ -15,4 +16,5 @@ public class ParseMyMessage {
 		
 		return messages;
 	}
+	
 }

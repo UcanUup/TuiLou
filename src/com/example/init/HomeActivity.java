@@ -12,16 +12,15 @@ public class HomeActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.home);
 		
-		//得到TabHost
+		// 得到TabHost
 		FragmentTabHost tabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
 		tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 	
-		//给选项卡加入各个项
+		// 给选项卡加入各个项
 		tabHost.addTab(
 				tabHost.newTabSpec(getString(R.string.message))
 					.setIndicator(getString(R.string.message)), 
@@ -49,8 +48,9 @@ public class HomeActivity extends FragmentActivity {
 				null);
 	}
 
-	//用户按下返回键时提示再按一次退出程序
 	private long exitTime = 0;
+	
+	// 用户按下返回键时提示再按一次退出程序
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK

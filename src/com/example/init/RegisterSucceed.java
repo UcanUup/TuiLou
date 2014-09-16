@@ -10,11 +10,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class RegisterSucceed extends Activity {
+	
 	private Button login;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.register_succeed);
@@ -24,11 +24,11 @@ public class RegisterSucceed extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(RegisterSucceed.this, LoginActivity.class);
 				startActivity(intent);
 			}
 		});
 	}
+	
 }

@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ParseMyGroup {
+	
 	public static List<Group> parse(String jsonData) {
 		Type listType = new TypeToken<List<Group>>(){}.getType();
 		Gson gson = new Gson();
@@ -15,4 +16,5 @@ public class ParseMyGroup {
 		
 		return groups;
 	}
+	
 }

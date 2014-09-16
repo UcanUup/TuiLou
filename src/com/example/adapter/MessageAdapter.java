@@ -17,16 +17,17 @@ import com.example.utils.MyMessage;
 import com.example.utils.UserInfo;
 
 public class MessageAdapter extends BaseAdapter {
+	
+	private Context mContext;
+	
 	private List<String> item1 = new ArrayList<String>();
 	private List<String> item2 = new ArrayList<String>();
-	private Context mContext;
 		
 	public MessageAdapter(Context mContext) {
-		// TODO Auto-generated constructor stub
 		super();
 		this.mContext = mContext;
 		
-		//设置显示内容
+		// 设置显示内容
 		for (Iterator<MyMessage> iterator = UserInfo.myMessage.iterator(); iterator.hasNext();) {
 			MyMessage message = (MyMessage) iterator.next();
 			item1.add(message.getGname());
@@ -36,19 +37,16 @@ public class MessageAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return item1.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return item1.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
@@ -64,4 +62,5 @@ public class MessageAdapter extends BaseAdapter {
 
 		return layout;
 	}
+	
 }

@@ -6,10 +6,10 @@ import android.os.Bundle;
 
 import com.example.R;
 
-public class CustomProgressDialog extends ProgressDialog {  
+public class CustomProgressDialog extends ProgressDialog {
+	
     public CustomProgressDialog(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override  
@@ -17,4 +17,5 @@ public class CustomProgressDialog extends ProgressDialog {
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.progress_dialog);  
     }  
+	
 }  

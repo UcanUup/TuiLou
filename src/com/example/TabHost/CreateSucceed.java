@@ -11,17 +11,17 @@ import android.widget.TextView;
 import com.example.R;
 
 public class CreateSucceed extends Activity {
+	
 	private TextView code;
 	
 	private Button backButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_succeed);
 		
-		//得到邀请码
+		// 得到邀请码
 		code = (TextView)findViewById(R.id.inviteCode);
 		Intent intent = getIntent();
 		code.setText(intent.getStringExtra("code"));
@@ -31,7 +31,6 @@ public class CreateSucceed extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});

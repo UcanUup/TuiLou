@@ -16,7 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MainActivity extends ActionBarActivity {
-	//设置启动画面延迟的时间
+	
+	// 设置启动画面延迟的时间
 	private final static int DISPLAY_LENGTH = 1300; 
 	
 	@Override
@@ -64,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
 			
-			//一个Handler用于处理延迟事件，控制打开应用画面的时间
+			// 一个Handler用于处理延迟事件，控制打开应用画面的时间
 			new Handler().postDelayed(new Runnable() {  
 	            public void run() {  
 	            	// 清除数据库内容

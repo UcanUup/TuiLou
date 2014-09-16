@@ -6,6 +6,7 @@ import android.database.Cursor;
 import com.example.utils.UserInfo;
 
 public class UserDatabase {
+	
 	private Context mContext;
 	
 	private String sql;
@@ -65,4 +66,5 @@ public class UserDatabase {
 		
 		db.close();
 	}
+	
 }
