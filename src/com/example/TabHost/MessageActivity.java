@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.R;
 import com.example.adapter.MessageAdapter;
@@ -23,6 +23,7 @@ import com.example.utils.CustomProgressDialog;
 import com.example.utils.MyMessage;
 import com.example.utils.ParseMyMessage;
 import com.example.utils.RefreshableView;
+import com.example.utils.Validation;
 import com.example.utils.RefreshableView.PullToRefreshListener;
 import com.example.utils.UserInfo;
 
@@ -65,31 +66,38 @@ public class MessageActivity extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		//显示圆形进度条
-		customProgressDialog = new CustomProgressDialog(getActivity());
-		customProgressDialog.show();
-		
-		// 设置请求链接的参数
-		params = new HashMap<String, String>();
-		params.put("em", UserInfo.email);
-		
-		//android 3.0以后规定要在新的线程执行网络访问等操作
-		Thread thread = new Thread(new Runnable() {
-			//连接服务器
-			@Override
-			public void run() {
-				HttpLinker httpLinker = new HttpLinker();
-				String result = httpLinker.link(params, HttpUrl.get_message);
-				
-				Message msg = new Message();
-				Bundle bundle = new Bundle();
-				bundle.putString("result", result);
-				msg.setData(bundle);
-				handler.sendMessage(msg);
-			}
-		});
-		//启动线程
-		thread.start();
+		// 网络连接不可用
+		if (!Validation.isNetAvailable(getActivity())) {
+			Toast.makeText(getActivity(), getString(R.string.network_error),
+				     Toast.LENGTH_SHORT).show();
+		}
+		else {
+			//显示圆形进度条
+			customProgressDialog = new CustomProgressDialog(getActivity());
+			customProgressDialog.show();
+			
+			// 设置请求链接的参数
+			params = new HashMap<String, String>();
+			params.put("em", UserInfo.email);
+			
+			//android 3.0以后规定要在新的线程执行网络访问等操作
+			Thread thread = new Thread(new Runnable() {
+				//连接服务器
+				@Override
+				public void run() {
+					HttpLinker httpLinker = new HttpLinker();
+					String result = httpLinker.link(params, HttpUrl.get_message);
+					
+					Message msg = new Message();
+					Bundle bundle = new Bundle();
+					bundle.putString("result", result);
+					msg.setData(bundle);
+					handler.sendMessage(msg);
+				}
+			});
+			//启动线程
+			thread.start();
+		}
 	}
 
 	@Override
@@ -114,25 +122,32 @@ public class MessageActivity extends Fragment {
 			//方法是在子线程中调用的， 不用另开线程来进行耗时操作。
 			@Override
 			public void onRefresh() {
-				try {
-					// 设置请求链接的参数
-					params = new HashMap<String, String>();
-					params.put("em", UserInfo.email);
-					
-					//进行链接
-					HttpLinker httpLinker = new HttpLinker();
-					String result = httpLinker.link(params, HttpUrl.get_message);
-					
-					Message msg = new Message();
-					Bundle bundle = new Bundle();
-					bundle.putString("result", result);
-					msg.setData(bundle);
-					handler.sendMessage(msg);
+				// 网络连接不可用
+				if (!Validation.isNetAvailable(getActivity())) {
+					Toast.makeText(getActivity(), getString(R.string.network_error),
+						     Toast.LENGTH_SHORT).show();
 				}
-				catch (Exception e) {
-					e.printStackTrace();
+				else {
+					try {
+						// 设置请求链接的参数
+						params = new HashMap<String, String>();
+						params.put("em", UserInfo.email);
+						
+						//进行链接
+						HttpLinker httpLinker = new HttpLinker();
+						String result = httpLinker.link(params, HttpUrl.get_message);
+						
+						Message msg = new Message();
+						Bundle bundle = new Bundle();
+						bundle.putString("result", result);
+						msg.setData(bundle);
+						handler.sendMessage(msg);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+					refreshableView.finishRefreshing();
 				}
-				refreshableView.finishRefreshing();
 			}
 		}, 0);
 		

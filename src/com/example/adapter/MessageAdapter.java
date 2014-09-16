@@ -27,7 +27,7 @@ public class MessageAdapter extends BaseAdapter {
 		this.mContext = mContext;
 		
 		//ÉèÖÃÏÔÊ¾ÄÚÈİ
-		for (Iterator iterator = UserInfo.myMessage.iterator(); iterator.hasNext();) {
+		for (Iterator<MyMessage> iterator = UserInfo.myMessage.iterator(); iterator.hasNext();) {
 			MyMessage message = (MyMessage) iterator.next();
 			item1.add(message.getGname());
 			item2.add(message.getTitle());

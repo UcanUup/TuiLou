@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -29,6 +30,7 @@ import com.example.utils.CustomProgressDialog;
 import com.example.utils.Group;
 import com.example.utils.ParseMyGroup;
 import com.example.utils.UserInfo;
+import com.example.utils.Validation;
 
 public class MyGroup extends Fragment {
 	private ExpandableListView groupListView;
@@ -121,32 +123,39 @@ public class MyGroup extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		//显示圆形进度条
-		customProgressDialog = new CustomProgressDialog(getActivity());
-		customProgressDialog.show();
-		
-		// 设置请求链接的参数
-		params = new HashMap<String, String>();
-		params.put("em", UserInfo.email);
-		
-		//android 3.0以后规定要在新的线程执行网络访问等操作
-		Thread thread = new Thread(new Runnable() {
-			//连接服务器
-			@Override
-			public void run() {
-				HttpLinker httpLinker = new HttpLinker();
-				String result = httpLinker.link(params, HttpUrl.my_group);
-				
-				Message msg = new Message();
-				Bundle bundle = new Bundle();
-				bundle.putString("result", result);
-				msg.setData(bundle);
-				msg.what = 1;
-				handler.sendMessage(msg);
-			}
-		});
-		//启动线程
-		thread.start();
+		// 网络连接不可用
+		if (!Validation.isNetAvailable(getActivity())) {
+			Toast.makeText(getActivity(), getString(R.string.network_error),
+				     Toast.LENGTH_SHORT).show();
+		}
+		else {
+			//显示圆形进度条
+			customProgressDialog = new CustomProgressDialog(getActivity());
+			customProgressDialog.show();
+			
+			// 设置请求链接的参数
+			params = new HashMap<String, String>();
+			params.put("em", UserInfo.email);
+			
+			//android 3.0以后规定要在新的线程执行网络访问等操作
+			Thread thread = new Thread(new Runnable() {
+				//连接服务器
+				@Override
+				public void run() {
+					HttpLinker httpLinker = new HttpLinker();
+					String result = httpLinker.link(params, HttpUrl.my_group);
+					
+					Message msg = new Message();
+					Bundle bundle = new Bundle();
+					bundle.putString("result", result);
+					msg.setData(bundle);
+					msg.what = 1;
+					handler.sendMessage(msg);
+				}
+			});
+			//启动线程
+			thread.start();
+		}
 	}
 	
 	//每一次切换到这个选项时都会调用
@@ -242,36 +251,43 @@ public class MyGroup extends Fragment {
 		public void onClick(DialogInterface dialog, int which) {
 			Group group = Group.childs.get(groupPosition).get(childPosition);
 			
-			//从本地移除这个组
-			UserInfo.myCreate.remove(group);
-			Group.childs.get(groupPosition).remove(childPosition);
-			
-			//显示圆形进度条
-			customProgressDialog = new CustomProgressDialog(getActivity());
-			customProgressDialog.show();
-			
-			// 设置请求链接的参数
-			params = new HashMap<String, String>();
-			params.put("gn", group.getGname());
-			
-			//android 3.0以后规定要在新的线程执行网络访问等操作
-			Thread thread = new Thread(new Runnable() {
-				//连接服务器
-				@Override
-				public void run() {
-					HttpLinker httpLinker = new HttpLinker();
-					String result = httpLinker.link(params, HttpUrl.delete_group);
-					
-					Message msg = new Message();
-					Bundle bundle = new Bundle();
-					bundle.putString("result", result);
-					msg.setData(bundle);
-					msg.what = 2;
-					handler.sendMessage(msg);
-				}
-			});
-			//启动线程
-			thread.start();
+			// 网络连接不可用
+			if (!Validation.isNetAvailable(getActivity())) {
+				Toast.makeText(getActivity(), getString(R.string.network_error),
+					     Toast.LENGTH_SHORT).show();
+			}
+			else {
+				//从本地移除这个组
+				UserInfo.myCreate.remove(group);
+				Group.childs.get(groupPosition).remove(childPosition);
+				
+				//显示圆形进度条
+				customProgressDialog = new CustomProgressDialog(getActivity());
+				customProgressDialog.show();
+				
+				// 设置请求链接的参数
+				params = new HashMap<String, String>();
+				params.put("gn", group.getGname());
+				
+				//android 3.0以后规定要在新的线程执行网络访问等操作
+				Thread thread = new Thread(new Runnable() {
+					//连接服务器
+					@Override
+					public void run() {
+						HttpLinker httpLinker = new HttpLinker();
+						String result = httpLinker.link(params, HttpUrl.delete_group);
+						
+						Message msg = new Message();
+						Bundle bundle = new Bundle();
+						bundle.putString("result", result);
+						msg.setData(bundle);
+						msg.what = 2;
+						handler.sendMessage(msg);
+					}
+				});
+				//启动线程
+				thread.start();
+			}
 		}
 		
 	}
@@ -283,37 +299,44 @@ public class MyGroup extends Fragment {
 		public void onClick(DialogInterface dialog, int which) {
 			Group group = Group.childs.get(groupPosition).get(childPosition);
 			
-			//从本地移除这个组
-			UserInfo.myJoin.remove(group);
-			Group.childs.get(groupPosition).remove(childPosition);
-			
-			//显示圆形进度条
-			customProgressDialog = new CustomProgressDialog(getActivity());
-			customProgressDialog.show();
-			
-			// 设置请求链接的参数
-			params = new HashMap<String, String>();
-			params.put("gn", group.getGname());
-			params.put("em", UserInfo.email);
-			
-			//android 3.0以后规定要在新的线程执行网络访问等操作
-			Thread thread = new Thread(new Runnable() {
-				//连接服务器
-				@Override
-				public void run() {
-					HttpLinker httpLinker = new HttpLinker();
-					String result = httpLinker.link(params, HttpUrl.exit_group);
-					
-					Message msg = new Message();
-					Bundle bundle = new Bundle();
-					bundle.putString("result", result);
-					msg.setData(bundle);
-					msg.what = 3;
-					handler.sendMessage(msg);
-				}
-			});
-			//启动线程
-			thread.start();
+			// 网络连接不可用
+			if (!Validation.isNetAvailable(getActivity())) {
+				Toast.makeText(getActivity(), getString(R.string.network_error),
+					     Toast.LENGTH_SHORT).show();
+			}
+			else {
+				//从本地移除这个组
+				UserInfo.myJoin.remove(group);
+				Group.childs.get(groupPosition).remove(childPosition);
+				
+				//显示圆形进度条
+				customProgressDialog = new CustomProgressDialog(getActivity());
+				customProgressDialog.show();
+				
+				// 设置请求链接的参数
+				params = new HashMap<String, String>();
+				params.put("gn", group.getGname());
+				params.put("em", UserInfo.email);
+				
+				//android 3.0以后规定要在新的线程执行网络访问等操作
+				Thread thread = new Thread(new Runnable() {
+					//连接服务器
+					@Override
+					public void run() {
+						HttpLinker httpLinker = new HttpLinker();
+						String result = httpLinker.link(params, HttpUrl.exit_group);
+						
+						Message msg = new Message();
+						Bundle bundle = new Bundle();
+						bundle.putString("result", result);
+						msg.setData(bundle);
+						msg.what = 3;
+						handler.sendMessage(msg);
+					}
+				});
+				//启动线程
+				thread.start();
+			}
 		}
 		
 	}

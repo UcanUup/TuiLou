@@ -1,6 +1,8 @@
 package com.example.init;
 
 import com.example.R;
+import com.example.sqlite.UserDatabase;
+import com.example.utils.UserInfo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,9 +67,22 @@ public class MainActivity extends ActionBarActivity {
 			//一个Handler用于处理延迟事件，控制打开应用画面的时间
 			new Handler().postDelayed(new Runnable() {  
 	            public void run() {  
-	                Intent intent = new Intent();
-	    			intent.setClass(getActivity(), LoginActivity.class);
-	    			startActivity(intent);
+	            	// 清除数据库内容
+					UserDatabase userDatabase = new UserDatabase(getActivity());
+					userDatabase.read();
+					
+					// 之前已经登陆过，则跳转到主页
+					if (UserInfo.email != null && UserInfo.userName != null) {
+						Intent intent = new Intent();
+		    			intent.setClass(getActivity(), HomeActivity.class);
+		    			startActivity(intent);
+					}
+					// 之前未登录过，则跳转到登陆页面
+					else {
+						Intent intent = new Intent();
+						intent.setClass(getActivity(), LoginActivity.class);
+						startActivity(intent);
+					}
 	                getActivity().finish();  
 	            }  
 	  

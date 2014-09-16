@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class DatabaseOperation {
 	private Context mContext;
 	
-	DatabaseHelper databaseHelper;
-	SQLiteDatabase db;
+	private DatabaseHelper databaseHelper;
+	private SQLiteDatabase db;
 	
 	public DatabaseOperation(Context mContext) {
 		this.mContext = mContext;
@@ -46,6 +46,7 @@ public class DatabaseOperation {
 		db.execSQL(sql);
 	}
 	
+	//≤È’“ ˝æ›
 	public Cursor find(String sql) {
 		db = databaseHelper.getWritableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);

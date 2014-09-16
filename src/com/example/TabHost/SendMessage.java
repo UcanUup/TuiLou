@@ -19,6 +19,7 @@ import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
 import com.example.utils.CustomProgressDialog;
 import com.example.utils.UserInfo;
+import com.example.utils.Validation;
 
 public class SendMessage extends Activity {
 	private TextView gname;
@@ -97,6 +98,11 @@ public class SendMessage extends Activity {
 				// 输入空值
 				if (title.equals("") || content.equals("")) {
 					Toast.makeText(getApplicationContext(), getString(R.string.null_value),
+						     Toast.LENGTH_SHORT).show();
+				}
+				// 网络连接不可用
+				else if (!Validation.isNetAvailable(SendMessage.this)) {
+					Toast.makeText(getApplicationContext(), getString(R.string.network_error),
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {

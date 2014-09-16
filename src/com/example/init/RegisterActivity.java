@@ -112,7 +112,13 @@ public class RegisterActivity extends Activity {
 				else if (!pwd.equals(cpwd)) {
 					Toast.makeText(getApplicationContext(), getString(R.string.password_differ),
 						     Toast.LENGTH_SHORT).show();
-				} else {
+				}
+				// 网络连接不可用
+				else if (!Validation.isNetAvailable(RegisterActivity.this)) {
+					Toast.makeText(getApplicationContext(), getString(R.string.network_error),
+						     Toast.LENGTH_SHORT).show();
+				}
+				else {
 					//显示圆形进度条
 					customProgressDialog = new CustomProgressDialog(RegisterActivity.this);
 					customProgressDialog.show();

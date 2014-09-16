@@ -1,6 +1,5 @@
 package com.example.init;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -8,8 +7,6 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.R;
-import com.example.utils.Group;
-import com.example.utils.UserInfo;
 
 public class HomeActivity extends FragmentActivity {
 
@@ -19,10 +16,6 @@ public class HomeActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.home);
-		
-		//设置用户名
-		Intent intent = getIntent();
-		UserInfo.userName = intent.getStringExtra("userName");
 		
 		//得到TabHost
 		FragmentTabHost tabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);

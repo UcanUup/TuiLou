@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.R;
+import com.example.init.LoginActivity;
+import com.example.sqlite.UserDatabase;
+import com.example.utils.Group;
 import com.example.utils.UserInfo;
 
 public class SettingActivity extends Fragment {
@@ -32,10 +35,23 @@ public class SettingActivity extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				//清空用户信息
+				// 清空用户信息
 				UserInfo.myMessage = null;
 				UserInfo.myCreate = null;
 				UserInfo.myJoin = null;
+				UserInfo.email = null;
+				UserInfo.userName = null;
+				
+				// 清空其他信息
+				Group.isUpdate = false;
+				Group.groups = null;
+				Group.childs = null;
+				Group.child1 = null;
+				Group.child2 = null;
+				
+				// 清除数据库内容
+				UserDatabase userDatabase = new UserDatabase(getActivity());
+				userDatabase.delete();
 				
 				getActivity().finish();
 			}

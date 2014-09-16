@@ -21,6 +21,7 @@ import com.example.http.HttpUrl;
 import com.example.utils.CustomProgressDialog;
 import com.example.utils.Group;
 import com.example.utils.UserInfo;
+import com.example.utils.Validation;
 
 public class CreateGroup extends Fragment {
 	private EditText groupText;
@@ -100,6 +101,11 @@ public class CreateGroup extends Fragment {
 				// 输入空值
 				if (group.equals("") || remark.equals("")) {
 					Toast.makeText(getActivity(), getString(R.string.null_value),
+						     Toast.LENGTH_SHORT).show();
+				}
+				// 网络连接不可用
+				else if (!Validation.isNetAvailable(getActivity())) {
+					Toast.makeText(getActivity(), getString(R.string.network_error),
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {

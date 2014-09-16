@@ -16,11 +16,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-
 public class HttpLinker {
 	public String link(HashMap<String, String> params, String page) {
 		String url = HttpUrl.baseUrl + page;

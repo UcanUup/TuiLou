@@ -1,7 +1,6 @@
 package com.example.utils;
 
 import java.lang.reflect.Type;
-import java.util.Iterator;
 import java.util.List;
 
 import com.google.gson.Gson;

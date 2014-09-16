@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
+import com.example.sqlite.UserDatabase;
 import com.example.utils.CustomProgressDialog;
 import com.example.utils.UserInfo;
 import com.example.utils.Validation;
@@ -60,9 +61,13 @@ public class LoginActivity extends Activity {
 			}
 			else {
 				UserInfo.email = email;
+				UserInfo.userName = result;
+				
+				// 将用户信息存入数据库
+				UserDatabase userDatabase = new UserDatabase(LoginActivity.this);
+				userDatabase.write();
 				
 				Intent intent = new Intent();
-				intent.putExtra("userName", result);
 				intent.setClass(LoginActivity.this, HomeActivity.class);
 				startActivity(intent);
 			}
@@ -97,9 +102,14 @@ public class LoginActivity extends Activity {
 					Toast.makeText(getApplicationContext(), getString(R.string.null_value),
 						     Toast.LENGTH_SHORT).show();
 				}
-				//邮箱格式不正确
+				// 邮箱格式不正确
 				else if (!Validation.isEmailValid(email)) {
 					Toast.makeText(getApplicationContext(), getString(R.string.email_format),
+						     Toast.LENGTH_SHORT).show();
+				}
+				// 网络连接不可用
+				else if (!Validation.isNetAvailable(LoginActivity.this)) {
+					Toast.makeText(getApplicationContext(), getString(R.string.network_error),
 						     Toast.LENGTH_SHORT).show();
 				}
 				else {
