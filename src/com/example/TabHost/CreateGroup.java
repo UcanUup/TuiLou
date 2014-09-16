@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,9 +18,8 @@ import android.widget.Toast;
 import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
-import com.example.init.HomeActivity;
-import com.example.init.LoginActivity;
 import com.example.utils.CustomProgressDialog;
+import com.example.utils.Group;
 import com.example.utils.UserInfo;
 
 public class CreateGroup extends Fragment {
@@ -33,6 +31,9 @@ public class CreateGroup extends Fragment {
 	private HashMap<String, String> params;
 	
 	private CustomProgressDialog customProgressDialog;
+	
+	private String group;
+	private String remark;
 	
 	//使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
@@ -47,12 +48,21 @@ public class CreateGroup extends Fragment {
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
 			
-			//用户名已经存在
+			//小组已经存在
 			if (result.equals("%exist%")) {
 				Toast.makeText(getActivity(), getString(R.string.group_exist),
 					     Toast.LENGTH_SHORT).show();
 			}
 			else {
+				//成功后加入组到childs用于切换选项卡时快速加载
+				Group g = new Group();
+				g.setGname(group);
+				g.setEmail(UserInfo.email);
+				g.setRemark(remark);
+				g.setCode(result);
+				Group.childs.get(0).add(g);
+				
+				//页面跳转
 				Intent intent = new Intent();
 				intent.putExtra("code", result);
 				intent.setClass(getActivity(), CreateSucceed.class);
@@ -77,8 +87,8 @@ public class CreateGroup extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// 点击登陆按钮后,将用户的输入转为字符串
-				String group = groupText.getText().toString();
-				String remark = remarkText.getText().toString();
+				group = groupText.getText().toString();
+				remark = remarkText.getText().toString();
 				
 				// 输入空值
 				if (group.equals("") || remark.equals("")) {

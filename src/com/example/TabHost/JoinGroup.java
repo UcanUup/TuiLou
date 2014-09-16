@@ -19,6 +19,7 @@ import com.example.R;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
 import com.example.utils.CustomProgressDialog;
+import com.example.utils.Group;
 import com.example.utils.UserInfo;
 
 public class JoinGroup extends Fragment {
@@ -28,6 +29,8 @@ public class JoinGroup extends Fragment {
 	private HashMap<String, String> params;
 	
 	private CustomProgressDialog customProgressDialog;
+	
+	private String groupCode;
 	
 	//使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
@@ -42,7 +45,7 @@ public class JoinGroup extends Fragment {
 			//关闭圆形进度条
 			customProgressDialog.dismiss();
 			
-			//用户名已经存在
+			// 邀请码不存在
 			if (result.equals("%nothing%")) {
 				Toast.makeText(getActivity(), getString(R.string.code_no_exist),
 						Toast.LENGTH_SHORT).show();
@@ -56,8 +59,17 @@ public class JoinGroup extends Fragment {
 						Toast.LENGTH_SHORT).show();
 			}
 			else {
+				//成功后加入组到childs用于切换选项卡时快速加载
+				String[] myGroup = result.split("\\^");
+				Group g = new Group();
+				g.setGname(myGroup[0]);
+				g.setEmail(myGroup[1]);
+				g.setRemark(myGroup[2]);
+				g.setCode(groupCode);
+				Group.childs.get(1).add(g);
+				
 				Intent intent = new Intent();
-				intent.putExtra("groupName", result);
+				intent.putExtra("groupName", myGroup[0]);
 				intent.setClass(getActivity(), InviteSucceed.class);
 				startActivity(intent);
 			}
@@ -80,7 +92,7 @@ public class JoinGroup extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// 点击登陆按钮后,将用户的输入转为字符串
-				String groupCode = code.getText().toString();
+			    groupCode = code.getText().toString();
 
 				// 输入空值
 				if (groupCode.equals("")) {

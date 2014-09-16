@@ -13,18 +13,21 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.R;
 import com.example.adapter.MessageAdapter;
 import com.example.http.HttpLinker;
 import com.example.http.HttpUrl;
-import com.example.sqlite.MessageDatabase;
 import com.example.utils.CustomProgressDialog;
 import com.example.utils.MyMessage;
 import com.example.utils.ParseMyMessage;
+import com.example.utils.RefreshableView;
+import com.example.utils.RefreshableView.PullToRefreshListener;
 import com.example.utils.UserInfo;
 
 public class MessageActivity extends Fragment {
+	private RefreshableView refreshableView;
 	private ListView messageListView;
 	
 	private int times = 1;
@@ -32,7 +35,7 @@ public class MessageActivity extends Fragment {
 	private HashMap<String, String> params;
 	
 	private CustomProgressDialog customProgressDialog;
-	
+
 	//使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
 
@@ -94,7 +97,8 @@ public class MessageActivity extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.message, container,
 				false);
-		
+	
+		refreshableView = (RefreshableView)rootView.findViewById(R.id.refreshable_view);
 		messageListView = (ListView)rootView.findViewById(R.id.messageListView);
 		
 		//不是第一次进入时
@@ -103,6 +107,34 @@ public class MessageActivity extends Fragment {
 			MessageAdapter messageAdapter = new MessageAdapter(getActivity());
 			messageListView.setAdapter(messageAdapter);
 		}
+		
+		//下拉时的操作
+		refreshableView.setOnRefreshListener(new PullToRefreshListener() {
+			
+			//方法是在子线程中调用的， 不用另开线程来进行耗时操作。
+			@Override
+			public void onRefresh() {
+				try {
+					// 设置请求链接的参数
+					params = new HashMap<String, String>();
+					params.put("em", UserInfo.email);
+					
+					//进行链接
+					HttpLinker httpLinker = new HttpLinker();
+					String result = httpLinker.link(params, HttpUrl.get_message);
+					
+					Message msg = new Message();
+					Bundle bundle = new Bundle();
+					bundle.putString("result", result);
+					msg.setData(bundle);
+					handler.sendMessage(msg);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				refreshableView.finishRefreshing();
+			}
+		}, 0);
 		
 		//点击每一项时的触发事件
 		messageListView.setOnItemClickListener(new OnItemClickListener() {

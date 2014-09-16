@@ -1,10 +1,15 @@
 package com.example.utils;
 
+import java.util.List;
+
 public class Group {
 	private String gname;
 	private String email;
 	private String remark;
 	private String code;
+	
+	public static List<String> groups;
+	public static List<List<Group>> childs;
 	
 	public String getGname() {
 		return gname;

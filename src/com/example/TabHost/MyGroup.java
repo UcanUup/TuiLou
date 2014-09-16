@@ -39,11 +39,8 @@ public class MyGroup extends Fragment {
 	
 	private CustomProgressDialog customProgressDialog;
 	
-	List<String> groups;
-	List<List<Group>> childs;
-	
-	int groupPosition;
-	int childPosition;
+	private int groupPosition;
+	private int childPosition;
 	
 	//使用Handler来等待子线程完成操作
 	private Handler handler = new Handler() {
@@ -58,7 +55,7 @@ public class MyGroup extends Fragment {
 			//用于刷新小组时
 			if (msg.what == 1) {
 				//划分我的创建和参与
-				String[] myGroup = result.split("\\.");
+				String[] myGroup = result.split("\\^");
 	
 				//我的创建
 				UserInfo.myCreate = ParseMyGroup.parse(myGroup[0]);
@@ -66,38 +63,39 @@ public class MyGroup extends Fragment {
 				//我的参与
 				UserInfo.myJoin = ParseMyGroup.parse(myGroup[1]);
 				
-				groups = new ArrayList<String>();
-				childs = new ArrayList<List<Group>>();
+				Group.groups = new ArrayList<String>();
+				Group.childs = new ArrayList<List<Group>>();
 				
 				//每个小组名
-				groups.add(getString(R.string.my_create));
-				groups.add(getString(R.string.my_join));
+				Group.groups.add(getString(R.string.my_create));
+				Group.groups.add(getString(R.string.my_join));
 				
 				//我的创建的子项
 				List<Group> child1 = new ArrayList<Group>();
-				for (Iterator iterator = UserInfo.myCreate.iterator(); iterator.hasNext();) {
+				for (Iterator<Group> iterator = UserInfo.myCreate.iterator(); iterator.hasNext();) {
 					Group group = (Group) iterator.next();
 					child1.add(group);
 				}
 				
 				//我的参与的子项
 				List<Group> child2 = new ArrayList<Group>();
-				for (Iterator iterator = UserInfo.myJoin.iterator(); iterator.hasNext();) {
+				for (Iterator<Group> iterator = UserInfo.myJoin.iterator(); iterator.hasNext();) {
 					Group group = (Group) iterator.next();
 					child2.add(group);
 				}
 				
 				//加入每个组的子项
-				childs.add(child1);
-				childs.add(child2);
+				Group.childs.add(child1);
+				Group.childs.add(child2);
 				
 				//关闭圆形进度条
 				customProgressDialog.dismiss();
 				
 				//设置设配器
 				groupListView.setGroupIndicator(null);
-				groupListView.setAdapter(new GroupAdapter(getActivity(), groups, childs));
+				groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
 				groupListView.expandGroup(0);
+				groupListView.expandGroup(1);
 				
 				times++;
 			}
@@ -108,8 +106,9 @@ public class MyGroup extends Fragment {
 				
 				//设置设配器
 				groupListView.setGroupIndicator(null);
-				groupListView.setAdapter(new GroupAdapter(getActivity(), groups, childs));
+				groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
 				groupListView.expandGroup(0);
+				groupListView.expandGroup(1);
 			}
 		}
 	};
@@ -162,8 +161,9 @@ public class MyGroup extends Fragment {
 		if (times > 1) {
 			//设置适配器
 			groupListView.setGroupIndicator(null);
-			groupListView.setAdapter(new GroupAdapter(getActivity(), groups, childs));
+			groupListView.setAdapter(new GroupAdapter(getActivity(), Group.groups, Group.childs));
 			groupListView.expandGroup(0);
+			groupListView.expandGroup(1);
 		}
 		
 		//点击每一项时的触发事件
@@ -175,7 +175,7 @@ public class MyGroup extends Fragment {
 				if (groupPosition == 0) {
 					Intent intent = new Intent();
 					intent.setClass(getActivity(), SendMessage.class);
-					intent.putExtra("groupName", childs.get(groupPosition).get(childPosition).getGname());
+					intent.putExtra("groupName", Group.childs.get(groupPosition).get(childPosition).getGname());
 					startActivity(intent);
 				}
 				
@@ -200,19 +200,19 @@ public class MyGroup extends Fragment {
 					if (groupPosition == 0) {
 						//弹出对话框
 						new AlertDialog.Builder(getActivity())   
-						.setTitle("确认")  
-						.setMessage("确定删除？")  
-						.setPositiveButton("是", new DeleteOnClickListener())  
-						.setNegativeButton("否", null)  
+						.setTitle(getString(R.string.confirm))  
+						.setMessage(getString(R.string.confirm_delete) + "?")  
+						.setPositiveButton(getString(R.string.yes), new DeleteOnClickListener())  
+						.setNegativeButton(getString(R.string.no), null)  
 						.show();  
 					}
 					else if (groupPosition == 1) {
 						//弹出对话框
 						new AlertDialog.Builder(getActivity())   
-						.setTitle("确认")  
-						.setMessage("退出小组？")  
-						.setPositiveButton("是", new ExitOnClickListener())  
-						.setNegativeButton("否", null)  
+						.setTitle(getString(R.string.confirm))  
+						.setMessage(getString(R.string.exit_group) + "?")  
+						.setPositiveButton(getString(R.string.yes), new ExitOnClickListener())  
+						.setNegativeButton(getString(R.string.no), null)  
 						.show();  
 					}
 					
@@ -232,11 +232,11 @@ public class MyGroup extends Fragment {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			Group group = childs.get(groupPosition).get(childPosition);
+			Group group = Group.childs.get(groupPosition).get(childPosition);
 			
 			//从本地移除这个组
 			UserInfo.myCreate.remove(group);
-			childs.get(groupPosition).remove(childPosition);
+			Group.childs.get(groupPosition).remove(childPosition);
 			
 			//显示圆形进度条
 			customProgressDialog = new CustomProgressDialog(getActivity());
@@ -273,11 +273,11 @@ public class MyGroup extends Fragment {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			Group group = childs.get(groupPosition).get(childPosition);
+			Group group = Group.childs.get(groupPosition).get(childPosition);
 			
 			//从本地移除这个组
 			UserInfo.myJoin.remove(group);
-			childs.get(groupPosition).remove(childPosition);
+			Group.childs.get(groupPosition).remove(childPosition);
 			
 			//显示圆形进度条
 			customProgressDialog = new CustomProgressDialog(getActivity());
